@@ -1,0 +1,20 @@
+[package]
+name = "api_auth"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+db = { path = "../db" }
+common = { path = "../common" }
+argon2 = { workspace = true }
+jsonwebtoken = { workspace = true }
+chrono = { workspace = true }
+oauth2 = { workspace = true }
+sqlx = { workspace = true }
+uuid = { workspace = true }
+log = { workspace = true }
+actix-web = { workspace = true }
+actix-session = { workspace = true }
+serde_json = { workspace = true }
+serde = { workspace = true }
+futures = {workspace = true }
