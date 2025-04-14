@@ -1,6 +1,6 @@
 use sqlx::{
-    PgPool,
     postgres::{PgConnectOptions, PgSslMode},
+    PgPool,
 };
 use std::{str::FromStr, sync::Arc};
 
@@ -59,8 +59,6 @@ pub async fn setup(
         options = options.ssl_mode(PgSslMode::Require);
     }
     let pool = PgPool::connect_with(options).await?;
-
-    sqlx::migrate!("./migrations").run(&pool).await?;
 
     Ok(Arc::new(pool))
 }

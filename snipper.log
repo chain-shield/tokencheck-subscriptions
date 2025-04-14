@@ -1,0 +1,4 @@
+[16:40:15][sqlx::query][[35mDEBUG[0m] summary="SELECT EXISTS (SELECT 1 …" db.statement="\n\nSELECT EXISTS (SELECT 1 FROM pg_database WHERE datname = $1)\n" rows_affected=0 rows_returned=1 elapsed=2.805583ms elapsed_secs=0.002805583
+[16:40:15][actix_server::builder][[32mINFO[0m] starting 6 workers
+[16:40:15][actix_server::server][[32mINFO[0m] Actix runtime found; starting in Actix runtime
+[16:40:15][actix_server::server][[32mINFO[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
