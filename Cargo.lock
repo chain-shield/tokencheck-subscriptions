@@ -1839,7 +1839,10 @@ dependencies = [
  "api_subs",
  "common",
  "db",
+ "log",
  "logger",
+ "sqlx",
+ "url",
 ]
 
 [[package]]

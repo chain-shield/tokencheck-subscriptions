@@ -10,6 +10,8 @@ use std::{env, sync::Arc};
 /// logging preferences, web application authentication callback URL,
 /// and GitHub client configuration.
 pub struct Config {
+    // SSL mode , do we need secure connection to db?
+    pub db_ssl_mode: String,
     // environment
     pub environment: String, // development or production
     /// The URL of the database to connect to.
@@ -133,6 +135,7 @@ impl Config {
         let stripe_webhook_secret = env::var("STRIPE_WEBHOOK_SECRET").unwrap_or_default();
 
         Arc::new(Config {
+            db_ssl_mode: env::var("DB_SSL_MODE").expect("DB_SSL_MODE must be set"),
             environment: env::var("ENVIRONMENT").expect("ENVIRONMENT must be set"),
             database_url: env::var("DATABASE_URL").expect("DATABASE_URL must be set"),
             jwt_config: JwtConfig::from_env(),
