@@ -1,22 +1,23 @@
 use std::{future::Future, pin::Pin, rc::Rc, sync::Arc};
 
 use actix_web::{
+    dev::{forward_ready, Service, ServiceRequest, ServiceResponse, Transform},
     Error, HttpMessage, HttpResponse,
-    dev::{Service, ServiceRequest, ServiceResponse, Transform, forward_ready},
 };
-use common::env_config::JwtConfig;
-use futures::future::{Ready, ok};
+use futures::future::{ok, Ready};
 
-use crate::services;
+use crate::services::{self, auth_client::AuthClient};
 
 pub struct AuthMiddleware {
-    jwt_config: Rc<JwtConfig>,
+    auth_service_url: Rc<String>,
+    auth_api_key: Rc<String>,
 }
 
 impl AuthMiddleware {
-    pub fn new(config: JwtConfig) -> Self {
+    pub fn new(service_url: String, api_key: String) -> Self {
         AuthMiddleware {
-            jwt_config: Rc::new(config),
+            auth_service_url: Rc::new(service_url),
+            auth_api_key: Rc::new(api_key),
         }
     }
 }
@@ -35,14 +36,16 @@ where
     fn new_transform(&self, service: S) -> Self::Future {
         ok(AuthMiddlewareService {
             service: Arc::new(service),
-            jwt_config: self.jwt_config.clone(),
+            auth_service_url: self.auth_service_url.clone(),
+            api_key: self.auth_api_key.clone(),
         })
     }
 }
 
 pub struct AuthMiddlewareService<S> {
     service: Arc<S>,
-    jwt_config: Rc<JwtConfig>,
+    auth_service_url: Rc<String>,
+    api_key: Rc<String>,
 }
 
 impl<S, B> Service<ServiceRequest> for AuthMiddlewareService<S>
@@ -59,31 +62,38 @@ where
     fn call(&self, req: ServiceRequest) -> Self::Future {
         // only require authorization for paths containing "/api/secured"
         let path = req.path();
+        let auth_service_url = self.auth_service_url.clone();
+        let api_key = self.api_key.clone();
+
         if !path.contains("/api/secured") {
             let fut = self.service.call(req);
             return Box::pin(async move { fut.await.map(|res| res.map_into_boxed_body()) });
         }
 
-        // retrieve token from authorization header
-        let auth_header = req
+        let token_value = req
             .headers()
             .get("Authorization")
-            .and_then(|h| h.to_str().ok())
-            .and_then(|auth_value| {
-                if auth_value.starts_with("Bearer ") {
-                    Some(auth_value[7..].to_owned())
+            .and_then(|header| header.to_str().ok())
+            .and_then(|header| {
+                if header.starts_with("Bearer ") {
+                    Some(header[7..].to_string())
                 } else {
                     None
                 }
             });
 
-        let jwt_config = self.jwt_config.clone();
+        // Dereference Rc<String> to String for AuthClient::new
+        let auth_client = AuthClient::new(
+            auth_service_url.as_ref().to_string(), // Convert Rc<String> to String
+            api_key.as_ref().to_string(),          // Convert Rc<String> to String
+        );
+
         let srv = Arc::clone(&self.service);
 
         Box::pin(async move {
-            if let Some(token) = auth_header {
+            if let Some(token) = token_value {
                 // validate token and insert claims to request object for future usage
-                match services::auth::validate_jwt(&token, &jwt_config.secret) {
+                match auth_client.validate_token(&token).await {
                     Ok(claims) => {
                         req.extensions_mut().insert(claims);
                         srv.call(req).await.map(|res| res.map_into_boxed_body())

@@ -10,6 +10,10 @@ use std::{env, sync::Arc};
 /// logging preferences, web application authentication callback URL,
 /// and GitHub client configuration.
 pub struct Config {
+    // url to reach authentcation service
+    pub auth_service_url: String,
+    // api key REQUIRED to make validate token call to auth service
+    pub auth_api_key: String,
     // SSL mode , do we need secure connection to db?
     pub db_ssl_mode: String,
     // environment
@@ -135,6 +139,8 @@ impl Config {
         let stripe_webhook_secret = env::var("STRIPE_WEBHOOK_SECRET").unwrap_or_default();
 
         Arc::new(Config {
+            auth_service_url: env::var("AUTH_SERVICE_URL").expect("AUTH_SERVICE_URL must be set"),
+            auth_api_key: env::var("AUTH_API_KEY").expect("AUTH_API_KEY must be set"),
             db_ssl_mode: env::var("DB_SSL_MODE").expect("DB_SSL_MODE must be set"),
             environment: env::var("ENVIRONMENT").expect("ENVIRONMENT must be set"),
             database_url: env::var("DATABASE_URL").expect("DATABASE_URL must be set"),
