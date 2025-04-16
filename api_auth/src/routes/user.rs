@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use actix_web::{Responder, get, web};
-use common::{http::Success, jwt::Claims};
+use common::{http::Success, jwt::JwtClaims};
 use sqlx::PgPool;
 
 use crate::services;
@@ -46,7 +46,7 @@ use crate::services;
 /// ```
 #[get("/me")]
 async fn get_me(
-    claims: web::ReqData<Claims>,
+    claims: web::ReqData<JwtClaims>,
     pool: web::Data<Arc<sqlx::PgPool>>,
 ) -> impl Responder {
     let user_id = claims.user_id;

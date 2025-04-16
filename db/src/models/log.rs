@@ -12,6 +12,7 @@ pub struct Log {
     pub status_code: i32,
     pub user_id: Option<Uuid>,
     pub params: Option<JsonValue>,
+    pub key_id: Option<Uuid>,
     pub request_body: Option<JsonValue>,
     pub response_body: Option<JsonValue>,
     pub ip_address: IpNetwork,

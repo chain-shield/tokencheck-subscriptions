@@ -1,9 +1,11 @@
 use std::fs::File;
 
 use colored::Colorize;
-use middleware::LoggerMiddleware;
+use middleware::logger::LoggerMiddleware;
 
-pub mod middleware;
+pub mod middleware {
+    pub mod logger;
+}
 
 pub fn setup() -> Result<(), fern::InitError> {
     File::create("snipper.log").map_err(fern::InitError::Io)?;
@@ -34,6 +36,6 @@ pub fn setup() -> Result<(), fern::InitError> {
     Ok(())
 }
 
-pub fn middleware(console_logging_enabled: bool) -> LoggerMiddleware {
-    LoggerMiddleware::new(console_logging_enabled)
+pub fn middleware() -> LoggerMiddleware {
+    LoggerMiddleware::new()
 }

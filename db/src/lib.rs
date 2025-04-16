@@ -6,15 +6,19 @@ use std::{str::FromStr, sync::Arc};
 
 pub mod log;
 pub mod user;
+pub mod key;
 
 pub mod models {
-    pub mod api;
+    pub mod key;
     pub mod log;
     pub mod user;
 }
 
 pub mod dtos {
     pub mod user;
+    pub mod key;
+    pub mod usage;
+    pub mod log;
 }
 
 pub async fn setup(

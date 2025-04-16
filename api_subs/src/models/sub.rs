@@ -9,16 +9,22 @@ pub struct SubscriptionPlan {
     pub currency: String,
     pub interval: String,
     pub active: bool,
-    pub features: Option<Vec<String>>,
-    pub metadata: Option<serde_json::Value>,
+    pub metadata: Option<Metadata>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserSubscription {
     pub id: String,
     pub customer_id: String,
-    pub price_id: String,
+    pub sub_id: String,
     pub status: String,
     pub current_period_end: i64,
     pub cancel_at_period_end: bool,
+}
+
+// Stripe forces metadata fields to be strings
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Metadata {
+    pub daily_api_limit: String,
+    pub monthly_api_limit: String,
 }

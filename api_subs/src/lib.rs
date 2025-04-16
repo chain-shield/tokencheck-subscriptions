@@ -5,9 +5,9 @@ pub mod routes {
     pub mod sub;
 }
 
-mod services {
-    pub(crate) mod pay;
-    pub(crate) mod sub;
+pub mod services {
+    pub mod pay;
+    pub mod sub;
 }
 
 mod dtos {
@@ -15,8 +15,8 @@ mod dtos {
     pub(crate) mod sub;
 }
 
-mod models {
-    pub(crate) mod sub;
+pub mod models {
+    pub mod sub;
 }
 
 mod misc {

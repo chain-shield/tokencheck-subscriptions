@@ -4,10 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+limiter = { path = "../limiter" }
+extractor = { path = "../extractor" }
 logger = { path = "../logger" }
 common = { path = "../common" }
 db = { path = "../db" }
 api_subs = { path = "../api_subs" }
 api_auth = { path = "../api_auth" }
+api_keys = { path = "../api_keys" }
+checker = { path = "../checker" }
 actix-web = { workspace = true }
 actix-cors = { workspace = true }
+governor = { workspace = true }

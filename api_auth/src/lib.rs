@@ -1,11 +1,8 @@
-use std::sync::Arc;
-
 use actix_session::{SessionMiddleware, config::PersistentSession, storage::CookieSessionStore};
 use actix_web::{
     cookie::{Key, SameSite, time::Duration},
     web,
 };
-use common::env_config::Config;
 use middleware::auth::AuthMiddleware;
 
 pub mod routes {
@@ -28,8 +25,8 @@ mod dtos {
 }
 
 // Auth middleware
-pub fn auth_middleware(config: Arc<Config>) -> AuthMiddleware {
-    AuthMiddleware::new(config.jwt_config.clone())
+pub fn auth_middleware() -> AuthMiddleware {
+    AuthMiddleware::new()
 }
 // Session middleware
 pub fn session_middleware(

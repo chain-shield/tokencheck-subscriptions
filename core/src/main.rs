@@ -1,6 +1,9 @@
 mod cors;
 
-use actix_web::{App, HttpServer, web};
+use actix_web::{
+    App, HttpServer,
+    web::{self},
+};
 use common::env_config::Config;
 
 #[actix_web::main]
@@ -10,13 +13,12 @@ async fn main() -> std::io::Result<()> {
     let config_data = config.clone();
 
     // get info
-    let logger_enabled = config_data.console_logging_enabled;
     let is_production = config.environment == "production";
     let origin = config.cors_allowed_origin.clone();
     let cookie_secure = !origin.contains("localhost");
 
     // init logger
-    if logger_enabled {
+    if config.console_logging_enabled {
         logger::setup().expect("Failed to set up logger");
     }
 
@@ -25,28 +27,43 @@ async fn main() -> std::io::Result<()> {
         .await
         .expect("Failed to set up database");
 
+    // get all subscription plans from Stripe
+    let client = common::stripe::create_client(&config.stripe_secret_key);
+    let plans = api_subs::services::sub::get_subscription_plans(&client)
+        .await
+        .expect("Failed to fetch subscription plans from Stripe API");
+
     HttpServer::new(move || {
         let secret = config_data.jwt_config.secret.as_bytes();
         App::new()
-            .wrap(logger::middleware(logger_enabled))
-            .wrap(cors::default(&origin))
             .app_data(web::Data::new(pool.clone()))
             .app_data(web::Data::new(config_data.clone()))
+            .wrap(limiter::global_middleware(10)) // max 10 requests per second
+            .wrap(logger::middleware()) // 4th
+            .wrap(extractor::middleware()) // 3rd
+            .wrap(cors::middleware(&origin)) // 2nd
             .wrap(api_auth::session_middleware(
                 cookie_secure,
                 is_production,
                 secret,
-            ))
+            )) // 1st
             .service(
                 web::scope("/api")
                     .service(api_auth::mount_auth())
                     .service(api_subs::mount_webhook())
                     .service(
-                        web::scope("/secured")
-                            .wrap(api_auth::auth_middleware(config_data.clone()))
+                        web::scope("/dashboard")
+                            .wrap(api_auth::auth_middleware())
                             .service(api_auth::mount_user())
                             .service(api_subs::mount_pay())
-                            .service(api_subs::mount_subs()),
+                            .service(api_subs::mount_subs())
+                            .service(api_keys::mount_keys()),
+                    )
+                    .service(
+                        web::scope("/v1")
+                            .wrap(api_keys::middleware())
+                            .wrap(limiter::user_middleware(plans.clone()))
+                            .service(checker::mount_checker()),
                     ),
             )
     })

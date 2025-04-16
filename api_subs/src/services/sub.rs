@@ -35,7 +35,7 @@ pub async fn get_subscription_plans(client: &Client) -> Res<Vec<SubscriptionPlan
             let recurring = price.recurring?;
             let product_obj = price.product.as_ref().and_then(|p| p.as_object())?;
 
-            Some(SubscriptionPlan {
+            let plan = SubscriptionPlan {
                 id: price.id.to_string(),
                 name: product_obj.name.clone().unwrap_or_default(),
                 description: product_obj.description.clone().unwrap_or_default(),
@@ -43,14 +43,13 @@ pub async fn get_subscription_plans(client: &Client) -> Res<Vec<SubscriptionPlan
                 currency: price.currency.unwrap_or_default().to_string(),
                 interval: recurring.interval.to_string(),
                 active: true,
-                features: product_obj
-                    .metadata
-                    .clone()
-                    .unwrap_or_default()
-                    .get("features")
-                    .and_then(|f| serde_json::from_str(f.as_str()).ok()),
-                metadata: serde_json::to_value(&product_obj.metadata).ok(),
-            })
+                metadata: product_obj.metadata.as_ref().and_then(|map| {
+                    let json_str = serde_json::to_string(map).ok()?;
+                    serde_json::from_str(&json_str).ok()
+                }),
+            };
+
+            Some(plan)
         })
         .collect();
 
@@ -81,9 +80,9 @@ pub async fn get_user_subscription(
 
     if let Some(sub) = subscriptions.data.first() {
         let user_sub = UserSubscription {
-            id: sub.id.to_string(),
+            sub_id: sub.id.to_string(),
             customer_id: customer_id.to_string(),
-            price_id: sub
+            id: sub
                 .items
                 .data
                 .first()
@@ -155,12 +154,12 @@ pub async fn update_subscription_auto_renew(
 
     // convert to our model
     let user_sub = UserSubscription {
-        id: subscription.id.to_string(),
+        sub_id: subscription.id.to_string(),
         customer_id: match &subscription.customer {
             stripe::Expandable::Id(id) => id.to_string(),
             stripe::Expandable::Object(customer) => customer.id.to_string(),
         },
-        price_id: subscription
+        id: subscription
             .items
             .data
             .first()

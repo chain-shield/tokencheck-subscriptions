@@ -237,13 +237,13 @@ pub async fn get_customer_payment_intents(
     customer_id: &str,
     req: &PaymentIntentsRequest,
 ) -> Res<Vec<PaymentIntent>> {
-    let cust_id = customer_id
+    let customer_id = customer_id
         .parse::<CustomerId>()
         .map_err(|e| AppError::Internal(format!("Invalid customer ID: {}", e)))?;
 
     // create list parameters with pagination options
     let mut params = stripe::ListPaymentIntents {
-        customer: Some(cust_id),
+        customer: Some(customer_id),
         limit: req.limit.or(Some(25)), // Default to 25 if not specified
         ..Default::default()
     };

@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use actix_web::{Responder, get, post, web};
-use common::{env_config::Config, error::{AppError, Res}, http::Success, jwt::Claims};
+use common::{env_config::Config, error::{AppError, Res}, http::Success, jwt::JwtClaims};
 
 use crate::{dtos::pay::{PaymentIntentsRequest, PaymentIntentsResponse, RefundRequest, RefundResponse}, services};
 
@@ -94,7 +94,7 @@ async fn post_webhook(
 /// ```
 #[post("/refund")]
 async fn post_refund(
-    _claims: web::ReqData<Claims>,
+    _claims: web::ReqData<JwtClaims>,
     req: web::Json<RefundRequest>,
     config: web::Data<Arc<Config>>,
 ) -> Res<impl Responder> {
@@ -128,7 +128,7 @@ async fn post_refund(
 /// - Error: Returns 404 if no payment is found or 403 if user isn't authorized
 #[get("/subscription-payment/{subscription_id}")]
 async fn get_subscription_payment(
-    claims: web::ReqData<Claims>,
+    claims: web::ReqData<JwtClaims>,
     path: web::Path<String>,
     config: web::Data<Arc<Config>>,
 ) -> Res<impl Responder> {
@@ -186,7 +186,7 @@ async fn get_subscription_payment(
 /// ```
 #[post("/payment-intents")]
 async fn post_payment_intents(
-    claims: web::ReqData<Claims>,
+    claims: web::ReqData<JwtClaims>,
     req: web::Json<PaymentIntentsRequest>,
     config: web::Data<Arc<Config>>,
 ) -> Res<impl Responder> {

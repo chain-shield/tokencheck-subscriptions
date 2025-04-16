@@ -1,0 +1,16 @@
+[package]
+name = "limiter"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+api_subs = { path = "../api_subs" }
+common = { path = "../common" }
+db = { path = "../db" }
+actix-web = { workspace = true }
+futures = { workspace = true }
+sqlx = { workspace = true }
+log = { workspace = true }
+dashmap = { workspace = true }
+governor = { workspace = true }
+uuid = { workspace = true }

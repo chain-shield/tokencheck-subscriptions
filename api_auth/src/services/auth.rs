@@ -2,49 +2,13 @@ use argon2::{
     Argon2,
     password_hash::{PasswordHash, PasswordVerifier},
 };
-use chrono::{Duration, Utc};
-use common::{env_config::{Config, JwtConfig}, error::{AppError, Res}, jwt::Claims};
+use common::{env_config::Config, error::{AppError, Res}};
 use db::models::user::User;
-use jsonwebtoken::{DecodingKey, Validation, decode};
-use jsonwebtoken::{EncodingKey, Header, encode};
-use log::warn;
 use oauth2::basic::*;
 use oauth2::*;
 use sqlx::PgPool;
 
 use crate::{dtos::auth::{LoginRequest, OAuthUserData}, misc::oauth::OAuthProvider};
-
-/// Generates JWT token based on user object and JWT configuration options
-pub fn generate_jwt(user: &User, config: &JwtConfig) -> Res<String> {
-    let expiration = Utc::now()
-        .checked_add_signed(Duration::hours(config.expiration_hours))
-        .expect("valid timestamp")
-        .timestamp();
-
-    let claims = Claims {
-        user_id: user.id.clone(),
-        stripe_customer_id: user.stripe_customer_id.as_ref().unwrap().clone(),
-        exp: expiration as usize,
-    };
-
-    encode(
-        &Header::default(),
-        &claims,
-        &EncodingKey::from_secret(config.secret.as_bytes()),
-    )
-    .map_err(AppError::from)
-}
-
-/// Extracts claims object from JWT token.
-/// Requires JWT secret.
-pub fn validate_jwt(token: &str, secret: &str) -> Res<Claims> {
-    let token_data = decode::<Claims>(
-        token,
-        &DecodingKey::from_secret(secret.as_bytes()),
-        &Validation::default(),
-    )?;
-    Ok(token_data.claims)
-}
 
 /// Create OAuth client object.
 pub fn create_oauth_client(
@@ -175,7 +139,7 @@ async fn fetch_github_user_data(access_token: &str) -> Res<OAuthUserData> {
                         .unwrap_or("")
                         .to_string()
                 } else {
-                    warn!(
+                    log::warn!(
                         "Failed to fetch GitHub emails: {:?}",
                         emails_response.status()
                     );

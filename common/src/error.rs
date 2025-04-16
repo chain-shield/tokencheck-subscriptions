@@ -1,6 +1,5 @@
 use actix_web::HttpResponse;
 use thiserror::Error;
-use log::error;
 
 pub type Res<T> = std::result::Result<T, AppError>;
 
@@ -32,47 +31,63 @@ pub enum AppError {
     #[error("Bad request: {0}")]
     BadRequest(String),
 
+    #[error("Too Many Requests: {0}")]
+    TooManyRequests(String),
+
     #[error("{0}")]
     Internal(String),
 }
 
 impl AppError {
     pub fn to_http_response(&self) -> HttpResponse {
-        let json_response = serde_json::json!({"error": self.to_string()});
+        let is_dev = cfg!(debug_assertions);
+
+        let to_internal_json = |err_msg: &str| {
+            if is_dev {
+                serde_json::json!({ "error": err_msg })
+            } else {
+                serde_json::json!({ "error": "Internal server error" })
+            }
+        };
 
         match self {
             // === CONVERSION ERRORS ===
             AppError::Database(error) => {
-                error!("Database error: {}", error);
-                HttpResponse::InternalServerError()
-                    .json(serde_json::json!({"error": "Internal server error"}))
+                log::error!("Database error: {}", error);
+                HttpResponse::InternalServerError().json(to_internal_json(&error.to_string()))
             }
             AppError::JWT(error) => {
-                error!("JWT error: {}", error);
-                HttpResponse::InternalServerError()
-                    .json(serde_json::json!({"error": "Internal server error"}))
+                log::error!("JWT error: {}", error);
+                HttpResponse::InternalServerError().json(to_internal_json(&error.to_string()))
             }
             AppError::Reqwest(error) => {
-                error!("Reqwest error: {}", error);
-                HttpResponse::InternalServerError()
-                    .json(serde_json::json!({"error": "Internal server error"}))
+                log::error!("Reqwest error: {}", error);
+                HttpResponse::InternalServerError().json(to_internal_json(&error.to_string()))
             }
             AppError::Stripe(error) => {
-                error!("Stripe error: {}", error);
-                HttpResponse::InternalServerError()
-                    .json(serde_json::json!({"error": "Internal server error"}))
+                log::error!("Stripe error: {}", error);
+                HttpResponse::InternalServerError().json(to_internal_json(&error.to_string()))
             }
 
             // === APPLICATION ERRORS ===
-            AppError::Unauthorized(_) => HttpResponse::Unauthorized().json(json_response),
-            AppError::Forbidden(_) => HttpResponse::Forbidden().json(json_response),
-            AppError::NotFound(_) => HttpResponse::NotFound().json(json_response),
-            AppError::BadRequest(_) => HttpResponse::BadRequest().json(json_response),
+            AppError::Unauthorized(_) => {
+                HttpResponse::Unauthorized().json(serde_json::json!({ "error": self.to_string() }))
+            }
+            AppError::Forbidden(_) => {
+                HttpResponse::Forbidden().json(serde_json::json!({ "error": self.to_string() }))
+            }
+            AppError::NotFound(_) => {
+                HttpResponse::NotFound().json(serde_json::json!({ "error": self.to_string() }))
+            }
+            AppError::BadRequest(_) => {
+                HttpResponse::BadRequest().json(serde_json::json!({ "error": self.to_string() }))
+            }
+            AppError::TooManyRequests(_) => HttpResponse::TooManyRequests()
+                .json(serde_json::json!({ "error": self.to_string() })),
 
             AppError::Internal(error) => {
-                error!("Internal error: {}", error);
-                HttpResponse::InternalServerError()
-                    .json(serde_json::json!({"error": "Internal server error"}))
+                log::error!("Internal error: {}", error);
+                HttpResponse::InternalServerError().json(to_internal_json(&error.to_string()))
             }
         }
     }

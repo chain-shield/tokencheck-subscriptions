@@ -13,7 +13,7 @@ pub struct User {
     pub updated_at: NaiveDateTime,
     pub verification_origin: String,
     pub verified: bool,
-    pub stripe_customer_id: Option<String>,
+    pub stripe_customer_id: String,
 }
 
 #[derive(Debug, Clone, sqlx::FromRow, Serialize)]

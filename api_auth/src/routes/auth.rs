@@ -3,7 +3,8 @@ use actix_web::{HttpResponse, Responder, get, http::header::LOCATION, post, web}
 use common::env_config::Config;
 use common::error::{AppError, Res};
 use common::http::Success;
-use oauth2::{reqwest, AuthorizationCode, CsrfToken, Scope, TokenResponse};
+use common::jwt::{self, ClaimsSpec};
+use oauth2::{AuthorizationCode, CsrfToken, Scope, TokenResponse, reqwest};
 use sqlx::PgPool;
 use std::sync::Arc;
 
@@ -100,7 +101,13 @@ pub async fn post_login(
 ) -> Res<impl Responder> {
     let pg_pool: &PgPool = &**pool;
     let user = services::auth::authenticate_user(pg_pool, &login_data.into_inner()).await?;
-    let token = services::auth::generate_jwt(&user, &config.jwt_config)?;
+    let token = jwt::generate_jwt(
+        ClaimsSpec {
+            user_id: user.id.clone(),
+            stripe_customer_id: user.stripe_customer_id.clone(),
+        },
+        &config.jwt_config,
+    )?;
     Success::ok(AuthResponse { token, user })
 }
 
@@ -205,12 +212,24 @@ async fn get_auth_provider_callback(
 
     let auth_response = if existing_user {
         let user = services::user::get_user_by_email(pg_pool, user_data.email).await?;
-        let token = services::auth::generate_jwt(&user, &config.jwt_config)?;
+        let token = jwt::generate_jwt(
+            ClaimsSpec {
+                user_id: user.id.clone(),
+                stripe_customer_id: user.stripe_customer_id.clone(),
+            },
+            &config.jwt_config,
+        )?;
         AuthResponse { token, user }
     } else {
         let user =
             services::user::create_user_with_oauth(pg_pool, &user_data, &provider, &config).await?;
-        let token = services::auth::generate_jwt(&user, &config.jwt_config)?;
+        let token = jwt::generate_jwt(
+            ClaimsSpec {
+                user_id: user.id.clone(),
+                stripe_customer_id: user.stripe_customer_id.clone(),
+            },
+            &config.jwt_config,
+        )?;
         AuthResponse { token, user }
     };
 

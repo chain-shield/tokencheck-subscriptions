@@ -1,5 +1,5 @@
 use actix_web::{Responder, get, post, web};
-use common::{env_config::Config, error::AppError, http::Success, jwt::Claims};
+use common::{env_config::Config, error::AppError, http::Success, jwt::JwtClaims};
 use std::sync::Arc;
 
 use crate::{
@@ -97,7 +97,7 @@ pub async fn get_plans(config: web::Data<Arc<Config>>) -> impl Responder {
 /// ```
 #[post("/subscribe")]
 pub async fn post_subscribe(
-    claims: web::ReqData<Claims>,
+    claims: web::ReqData<JwtClaims>,
     req: web::Json<SubscriptionCreateRequest>,
     config: web::Data<Arc<Config>>,
 ) -> impl Responder {
@@ -160,7 +160,7 @@ pub async fn post_subscribe(
 /// ```
 #[post("/enterprise")]
 pub async fn post_enterprise(
-    claims: web::ReqData<Claims>,
+    claims: web::ReqData<JwtClaims>,
     req: web::Json<EnterpriseSubscriptionRequest>,
     config: web::Data<Arc<Config>>,
 ) -> impl Responder {
@@ -215,7 +215,7 @@ pub async fn post_enterprise(
 /// ```
 #[get("/current")]
 pub async fn get_current(
-    claims: web::ReqData<Claims>,
+    claims: web::ReqData<JwtClaims>,
     config: web::Data<Arc<Config>>,
 ) -> impl Responder {
     let client = common::stripe::create_client(&config.stripe_secret_key);
@@ -259,7 +259,7 @@ pub async fn get_current(
 /// ```
 #[post("/auto-renew")]
 pub async fn post_auto_renew(
-    claims: web::ReqData<Claims>,
+    claims: web::ReqData<JwtClaims>,
     req: web::Json<UpdateAutoRenewRequest>,
     config: web::Data<Arc<Config>>,
 ) -> impl Responder {
