@@ -57,7 +57,7 @@ async fn post_register(
         return Err(AppError::BadRequest("Username already exists".to_string()));
     }
     let user =
-        services::user::create_user_with_credentials(pg_pool, &req.into_inner(), &config).await?;
+        services::user::create_user_with_credentials(pg_pool, req.into_inner(), &config).await?;
     Ok(Success::created(user))
 }
 
@@ -222,7 +222,7 @@ async fn get_auth_provider_callback(
         AuthResponse { token, user }
     } else {
         let user =
-            services::user::create_user_with_oauth(pg_pool, &user_data, &provider, &config).await?;
+            services::user::create_user_with_oauth(pg_pool, user_data, &provider, &config).await?;
         let token = jwt::generate_jwt(
             ClaimsSpec {
                 user_id: user.id.clone(),

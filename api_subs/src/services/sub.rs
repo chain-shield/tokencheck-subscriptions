@@ -1,7 +1,7 @@
 use common::error::{AppError, Res};
 use stripe::{
-    CheckoutSession, Client, CreateProduct, Customer, CustomerId, ListPrices, Price, Product,
-    Subscription,
+    CheckoutSession, Client, CreateProduct, CreateSubscription, CreateSubscriptionItems, Customer,
+    CustomerId, ListPrices, Price, Product, Subscription,
 };
 
 use crate::{
@@ -16,7 +16,6 @@ use crate::{
 pub async fn get_subscription_plans(client: &Client) -> Res<Vec<SubscriptionPlan>> {
     let params = ListPrices {
         active: Some(true),
-        limit: Some(100),
         expand: &["data.product"],
         ..Default::default()
     };
@@ -27,22 +26,15 @@ pub async fn get_subscription_plans(client: &Client) -> Res<Vec<SubscriptionPlan
         .data
         .into_iter()
         .filter_map(|price| {
-            // Only include subscription prices
-            if price.type_ != Some(stripe::PriceType::Recurring) {
-                return None;
-            }
-
-            let recurring = price.recurring?;
             let product_obj = price.product.as_ref().and_then(|p| p.as_object())?;
 
             let plan = SubscriptionPlan {
                 id: price.id.to_string(),
                 name: product_obj.name.clone().unwrap_or_default(),
                 description: product_obj.description.clone().unwrap_or_default(),
-                price: price.unit_amount.unwrap_or(0),
-                currency: price.currency.unwrap_or_default().to_string(),
-                interval: recurring.interval.to_string(),
-                active: true,
+                price: price.unit_amount,
+                currency: price.currency.map(|c| c.to_string()),
+                interval: price.recurring.map(|r| r.interval.to_string()),
                 metadata: product_obj.metadata.as_ref().and_then(|map| {
                     let json_str = serde_json::to_string(map).ok()?;
                     serde_json::from_str(&json_str).ok()
@@ -96,6 +88,36 @@ pub async fn get_user_subscription(
     } else {
         Ok(None)
     }
+}
+
+/// Subscribes the given Stripe customer to the free plan.
+///
+/// `free_price_id` should be the Price.id of your $0/month plan.
+pub async fn subscribe_user_to_free_plan(client: &Client, customer_id: CustomerId) -> Res<()> {
+    // find price ID of the free plan
+    let plans = get_subscription_plans(client).await?;
+    let free_price_id = plans
+        .iter()
+        .find(|p| p.price == Some(0) || p.price == None)
+        .map(|p| p.id.clone())
+        .ok_or_else(|| AppError::Internal("Failed to find free plan".into()))?;
+
+    // create item
+    let item = CreateSubscriptionItems {
+        price: Some(free_price_id),
+        ..Default::default()
+    };
+
+    // build params
+    let mut params = CreateSubscription::new(customer_id);
+    params.items = Some(vec![item]);
+
+    // call Stripe
+    _ = Subscription::create(client, params)
+        .await
+        .map_err(AppError::from)?;
+
+    Ok(())
 }
 
 /// Creates Enterprise subscription.

@@ -1,3 +1,5 @@
+use crate::dtos::auth::{OAuthUserData, RegisterRequest};
+use crate::misc::oauth::OAuthProvider;
 use argon2::password_hash::SaltString;
 use argon2::password_hash::rand_core::OsRng;
 use argon2::{Argon2, password_hash::PasswordHasher};
@@ -7,8 +9,6 @@ use common::misc::UserVerificationOrigin;
 use common::stripe;
 use db::dtos::user::{AuthProviderCreateRequest, UserCreateRequest};
 use db::models::user::{AuthCredentials, User};
-use crate::dtos::auth::{OAuthUserData, RegisterRequest};
-use crate::misc::oauth::OAuthProvider;
 
 use sqlx::PgPool;
 use uuid::Uuid;
@@ -27,28 +27,32 @@ pub async fn get_user_by_id(pool: &PgPool, user_id: Uuid) -> Res<User> {
 /// Used when signing in using OAuth provider.
 pub async fn create_user_with_oauth(
     pool: &PgPool,
-    user_data: &OAuthUserData,
+    user_data: OAuthUserData,
     provider: &OAuthProvider,
     config: &Config,
 ) -> Res<User> {
     let mut tx = pool.begin().await?;
 
     // create Stripe customer
-    let client = stripe::create_client(&config.stripe_secret_key);
-    let name = format!("{} {}", user_data.first_name, user_data.last_name);
-    let stripe_customer =
-        stripe::create_customer(&client, &user_data.email, &name).await?;
+    let stripe_customer_id = create_stripe_customer(
+        config,
+        CreateCustomerSpec {
+            first_name: user_data.first_name.clone(),
+            last_name: user_data.last_name.clone(),
+            email: user_data.email.clone(),
+        },
+    ).await?;
 
     // insert user
     let user = db::user::insert_user(
         &mut *tx,
         UserCreateRequest {
-            email: user_data.email.clone(),
-            first_name: user_data.first_name.clone(),
-            last_name: user_data.last_name.clone(),
+            email: user_data.email,
+            first_name: user_data.first_name,
+            last_name: user_data.last_name,
             company_name: None,
             verification_origin: UserVerificationOrigin::OAuth,
-            stripe_customer_id: Some(stripe_customer.id.to_string()),
+            stripe_customer_id
         },
     )
     .await?;
@@ -72,27 +76,31 @@ pub async fn create_user_with_oauth(
 /// User when signing in using credentials.
 pub async fn create_user_with_credentials(
     pool: &PgPool,
-    req: &RegisterRequest,
+    req: RegisterRequest,
     config: &Config,
 ) -> Res<User> {
     let mut tx = pool.begin().await?;
 
     // create Stripe customer
-    let client = stripe::create_client(&config.stripe_secret_key);
-    let name = format!("{} {}", req.first_name, req.last_name);
-    let stripe_customer =
-        stripe::create_customer(&client, &req.email, &name).await?;
+    let stripe_customer_id = create_stripe_customer(
+        config,
+        CreateCustomerSpec {
+            first_name: req.first_name.clone(),
+            last_name: req.last_name.clone(),
+            email: req.email.clone(),
+        },
+    ).await?;
 
     // insert user
     let user = db::user::insert_user(
         &mut *tx,
         UserCreateRequest {
-            email: req.email.clone(),
-            first_name: req.first_name.clone(),
-            last_name: req.last_name.clone(),
-            company_name: req.company_name.clone(),
+            email: req.email,
+            first_name: req.first_name,
+            last_name: req.last_name,
+            company_name: req.company_name,
             verification_origin: UserVerificationOrigin::Email,
-            stripe_customer_id: Some(stripe_customer.id.to_string()),
+            stripe_customer_id,
         },
     )
     .await?;
@@ -117,4 +125,20 @@ pub async fn create_user_with_credentials(
 
     tx.commit().await?;
     Ok(user)
+}
+
+struct CreateCustomerSpec {
+    first_name: String,
+    last_name: String,
+    email: String,
+}
+async fn create_stripe_customer(config: &Config, spec: CreateCustomerSpec) -> Res<String> {
+    let client = stripe::create_client(&config.stripe_secret_key);
+    let name = format!("{} {}", spec.first_name, spec.last_name);
+    let stripe_customer = stripe::create_customer(&client, &spec.email, &name).await?;
+
+    api_subs::services::sub::subscribe_user_to_free_plan(&client, stripe_customer.id.clone())
+        .await?;
+
+    Ok(stripe_customer.id.to_string())
 }

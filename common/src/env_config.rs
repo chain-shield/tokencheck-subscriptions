@@ -14,6 +14,8 @@ pub struct Config {
     pub environment: String, // development or production
     /// The URL of the database to connect to.
     pub database_url: String,
+    /// The URL of Redis server to connect to.
+    pub redis_url: String,
     /// Configuration for JWT (JSON Web Token) authentication.
     pub jwt_config: JwtConfig,
     /// The hostname or IP address the server will bind to.
@@ -135,6 +137,7 @@ impl Config {
         Arc::new(Config {
             environment: env::var("ENVIRONMENT").expect("ENVIRONMENT must be set"),
             database_url: env::var("DATABASE_URL").expect("DATABASE_URL must be set"),
+            redis_url: env::var("REDIS_URL").expect("REDIS_URL must be set"),
             jwt_config: JwtConfig::from_env(),
             server_host: env::var("IP").unwrap_or_else(|_| "127.0.0.1".to_string()),
             server_port: env::var("PORT")

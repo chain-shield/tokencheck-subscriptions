@@ -7,7 +7,7 @@ pub struct UserCreateRequest {
     pub last_name: String,
     pub company_name: Option<String>,
     pub verification_origin: UserVerificationOrigin,
-    pub stripe_customer_id: Option<String>,
+    pub stripe_customer_id: String,
 }
 pub struct AuthProviderCreateRequest {
     pub user_id: Uuid,

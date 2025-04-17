@@ -5,10 +5,9 @@ pub struct SubscriptionPlan {
     pub id: String,
     pub name: String,
     pub description: String,
-    pub price: i64,
-    pub currency: String,
-    pub interval: String,
-    pub active: bool,
+    pub price: Option<i64>,
+    pub currency: Option<String>,
+    pub interval: Option<String>,
     pub metadata: Option<Metadata>,
 }
 

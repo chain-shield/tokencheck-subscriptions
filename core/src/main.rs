@@ -33,8 +33,14 @@ async fn main() -> std::io::Result<()> {
         .await
         .expect("Failed to fetch subscription plans from Stripe API");
 
+    // init Redis
+    let redis_client =
+        redis::Client::open(config.redis_url.clone()).expect("Failed to create Redis client");
+
     HttpServer::new(move || {
         let secret = config_data.jwt_config.secret.as_bytes();
+        let redis_client = redis_client.clone();
+        let plans_data = plans.clone();
         App::new()
             .app_data(web::Data::new(pool.clone()))
             .app_data(web::Data::new(config_data.clone()))
@@ -62,7 +68,7 @@ async fn main() -> std::io::Result<()> {
                     .service(
                         web::scope("/v1")
                             .wrap(api_keys::middleware())
-                            .wrap(limiter::user_middleware(plans.clone()))
+                            .wrap(limiter::quota_middleware(plans_data, redis_client))
                             .service(checker::mount_checker()),
                     ),
             )

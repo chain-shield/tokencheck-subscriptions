@@ -16,3 +16,4 @@ checker = { path = "../checker" }
 actix-web = { workspace = true }
 actix-cors = { workspace = true }
 governor = { workspace = true }
+redis = { workspace = true }
