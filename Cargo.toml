@@ -1,9 +1,10 @@
-[workspace]
+[package]
+name = "tokencheck-subscriptions"
+version = "0.1.0"
+edition = "2024"
+default-run = "tokencheck-subscriptions"
 
-resolver = "3"
-members = ["core", "db", "common", "api_subs", "api_auth", "logger"]
-
-[workspace.dependencies]
+[dependencies]
 actix-web = { version = "4.10.2", features = ["cookies"] }
 actix-session = { version = "0.10.1", features = ["cookie-session"] }
 actix-cors = "0.7.1"

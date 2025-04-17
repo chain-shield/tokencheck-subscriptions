@@ -1,4 +1,45 @@
-# Rust Web Server
+# TokenCheck Subscriptions API
+
+## Project Structure
+
+This project is a Rust-based web server that provides subscription and payment management functionality using Stripe. The application is built with Actix Web and follows a modular architecture.
+
+### Directory Structure
+
+```
+src/
+├── api_subs/         # Subscription and payment API endpoints
+│   ├── dtos/         # Data transfer objects
+│   ├── misc/         # Miscellaneous utilities
+│   ├── models/       # Data models
+│   ├── routes/       # API route handlers
+│   └── services/     # Business logic services
+├── auth/             # Authentication functionality
+│   ├── middleware/   # Auth middleware
+│   └── services/     # Auth services
+├── common/           # Shared utilities
+│   ├── env_config.rs # Environment configuration
+│   ├── error.rs      # Error handling
+│   ├── http.rs       # HTTP utilities
+│   ├── jwt.rs        # JWT handling
+│   ├── misc.rs       # Miscellaneous utilities
+│   └── stripe.rs     # Stripe integration utilities
+├── db/               # Database functionality
+│   ├── models/       # Database models
+│   └── log.rs        # Logging functionality
+├── logger/           # Logging middleware and setup
+├── cors.rs           # CORS configuration
+├── lib.rs            # Library exports
+└── main.rs           # Application entry point
+```
+
+### Key Features
+
+- **Authentication**: OAuth integration with multiple providers
+- **Subscription Management**: Complete subscription lifecycle with Stripe
+- **Payment Processing**: Secure payment handling with Stripe
+- **Logging**: Comprehensive request and response logging
+- **Error Handling**: Consistent error handling throughout the application
 
 ## OAuth Integration Instructions
 
@@ -53,7 +94,7 @@ export default function OAuthCallbackPage() {
 
                 const user = JSON.parse(userJson);
                 // you can store token and user in localStorage or in a cookie here
-                
+
                 // redirect to home page or user dashboard
                 router.push('/');
             } catch (error) {

@@ -2,3 +2,69 @@
 [18:03:24][actix_server::builder][[32mINFO[0m] starting 6 workers
 [18:03:24][actix_server::server][[32mINFO[0m] Actix runtime found; starting in Actix runtime
 [18:03:24][actix_server::server][[32mINFO[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[19:38:40][actix_server::server][[32mINFO[0m] SIGINT received; starting forced shutdown
+[19:38:40][actix_server::accept][[35mDEBUG[0m] paused accepting connections on 127.0.0.1:8081
+[19:38:40][actix_server::accept][[32mINFO[0m] accept thread stopped
+[19:38:40][actix_server::worker][[32mINFO[0m] shutting down idle worker
+[19:38:40][actix_server::worker][[32mINFO[0m] shutting down idle worker
+[19:38:40][actix_server::worker][[32mINFO[0m] shutting down idle worker
+[19:38:40][actix_server::worker][[32mINFO[0m] shutting down idle worker
+[19:38:40][actix_server::worker][[32mINFO[0m] shutting down idle worker
+[19:38:40][actix_server::worker][[32mINFO[0m] shutting down idle worker
+[90m[2025-04-16 20:10:24][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:10:24][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:10:24][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-16 20:12:02][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-16 20:12:02][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-16 20:12:02][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:02][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:02][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:02][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:02][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:02][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:14][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:12:14][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:12:14][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-16 20:12:20][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-16 20:12:20][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-16 20:12:20][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:20][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:20][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:20][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:20][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:12:20][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-16 20:15:22][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:15:22][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:15:22][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-16 20:15:48][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:15:48][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:15:48][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-16 20:17:10][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:17:10][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:17:10][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-16 20:17:59][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:17:59][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:17:59][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-16 20:21:53][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:21:53][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:21:53][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-16 20:25:16][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:25:16][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:25:16][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-16 20:26:05][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:26:05][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:26:05][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-16 20:26:49][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-16 20:26:49][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-16 20:26:49][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-17 10:55:42][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-17 10:55:42][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-17 10:55:42][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-17 10:55:47][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-17 10:55:47][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-17 10:55:47][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-17 10:55:47][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-17 10:55:47][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-17 10:55:47][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-17 10:55:47][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-17 10:55:47][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
