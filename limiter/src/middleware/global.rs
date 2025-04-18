@@ -62,14 +62,15 @@ where
         let srv = Rc::clone(&self.service);
         let limiter = self.limiter.clone();
         Box::pin(async move {
+            // Check if the rate limiter allows the request
             if limiter.check().is_ok() {
                 // Move to the next services if ok
                 srv.call(req).await.map(|res| res.map_into_boxed_body())
             } else {
                 // Return 429 if limit reached
-                Ok(req.error_response(
-                    AppError::TooManyRequests("Server overloaded. Please try again later.".to_string())
-                ))
+                Ok(req.error_response(AppError::TooManyRequests(
+                    "Server overloaded. Please try again later.".to_string(),
+                )))
             }
         })
     }

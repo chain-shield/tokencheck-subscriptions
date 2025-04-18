@@ -47,13 +47,17 @@ where
 
     forward_ready!(service);
 
+    /// Processes the request and extracts JWT claims.
     fn call(&self, req: ServiceRequest) -> Self::Future {
         let srv = Arc::clone(&self.service);
 
         Box::pin(async move {
+            // Attempt to extract and validate JWT claims from the request
             match jwt::get_jwt_claims_or_error(&req) {
                 Ok(claims) => {
+                    // If claims are valid, insert them into the request extensions
                     req.extensions_mut().insert(claims);
+                    // Call the next service in the chain
                     return srv.call(req).await.map(|res| res.map_into_boxed_body())
                 },
                 Err(response) => return Ok(req.into_response(response)),

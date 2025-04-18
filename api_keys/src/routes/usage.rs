@@ -8,6 +8,16 @@ use sqlx::PgPool;
 
 use crate::{dtos::usage::KeyUsageRequest, service};
 
+/// Retrieves usage logs for a given API key.
+///
+/// # Arguments
+///
+/// * `pool` - The database connection pool.
+/// * `req` - The request containing the query parameters for filtering usage logs.
+///
+/// # Returns
+///
+/// A `Result` containing a `Success` response with the usage logs or an `AppError` if an error occurs.
 #[get("/usage")]
 pub async fn get_usage(
     pool: web::Data<Arc<PgPool>>,

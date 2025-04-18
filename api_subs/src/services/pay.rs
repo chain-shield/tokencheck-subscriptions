@@ -11,6 +11,15 @@ use crate::dtos::pay::{
 };
 
 /// Retrieve customer object based on customer ID.
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `customer_id` - The ID of the customer to retrieve.
+///
+/// # Returns
+///
+/// A `Result` containing the `Customer` object or an `AppError` if an error occurs.
 pub async fn get_customer(client: &Client, customer_id: &str) -> Res<Customer> {
     let id = customer_id.parse::<CustomerId>().map_err(|e| {
         AppError::Internal(format!(
@@ -26,6 +35,16 @@ pub async fn get_customer(client: &Client, customer_id: &str) -> Res<Customer> {
 /// Creates a checkout session for a given customer.
 /// Requires SubscriptionRequest object to specify subscription plan
 /// and urls where app should redirect the user in the case of success or failure
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `customer` - A reference to the Stripe customer object.
+/// * `req` - The request containing the information for creating the subscription session.
+///
+/// # Returns
+///
+/// A `Result` containing the `CheckoutSession` object or an `AppError` if an error occurs.
 pub async fn create_subscription_session(
     client: &Client,
     customer: &Customer,
@@ -53,6 +72,16 @@ pub async fn create_subscription_session(
 /// Requires SubscriptionRequest object to specify subscription plan, product,
 /// custom price, whether or not the subscription is recurring
 /// and urls where app should redirect the user in the case of success or failure
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `customer` - A reference to the Stripe customer object.
+/// * `req` - The request containing the information for creating the custom subscription session.
+///
+/// # Returns
+///
+/// A `Result` containing the `CheckoutSession` object or an `AppError` if an error occurs.
 pub async fn create_custom_subscription_session(
     client: &Client,
     customer: &Customer,
@@ -92,6 +121,16 @@ pub async fn create_custom_subscription_session(
 
 /// Creates an event for the webhook based on the request payload and signature.
 /// Requires a webhook secret key.
+///
+/// # Arguments
+///
+/// * `payload` - The raw string containing the webhook event data.
+/// * `signature` - The Stripe signature from the request headers.
+/// * `webhook_secret` - The webhook secret key.
+///
+/// # Returns
+///
+/// A `Result` containing the `Event` object or an `AppError` if an error occurs.
 pub fn construct_event(payload: &str, signature: &str, webhook_secret: &str) -> Res<Event> {
     match Webhook::construct_event(payload, signature, webhook_secret) {
         Ok(event) => Ok(event),
@@ -103,6 +142,14 @@ pub fn construct_event(payload: &str, signature: &str, webhook_secret: &str) -> 
 }
 
 /// Processes the webhook event.
+///
+/// # Arguments
+///
+/// * `event` - The Stripe `Event` object to process.
+///
+/// # Returns
+///
+/// A `Result` indicating success or an `AppError` if an error occurs.
 pub fn process_webhook_event(event: Event) -> Res<()> {
     log::info!("Processing webhook event: {}", event.type_);
 
@@ -141,6 +188,15 @@ pub fn process_webhook_event(event: Event) -> Res<()> {
 }
 
 /// Processes the refund of a given payment intent.
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `req` - The request containing the information for processing the refund.
+///
+/// # Returns
+///
+/// A `Result` containing the `Refund` object or an `AppError` if an error occurs.
 pub async fn process_refund(client: &Client, req: &RefundRequest) -> Res<Refund> {
     let mut params = CreateRefund::new();
     let payment_intent_id = req
@@ -171,6 +227,16 @@ pub async fn process_refund(client: &Client, req: &RefundRequest) -> Res<Refund>
 }
 
 /// Gets subscription payment based on subscription ID and customer ID.
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `subscription_id` - The ID of the subscription to retrieve payment information for.
+/// * `customer_id` - The ID of the customer.
+///
+/// # Returns
+///
+/// A `Result` containing a `serde_json::Value` with payment information or an `AppError` if an error occurs.
 pub async fn get_subscription_payment(
     client: &Client,
     subscription_id: &str,
@@ -232,6 +298,16 @@ pub async fn get_subscription_payment(
 }
 
 /// Gets a list of customer payment intents based on customer ID and additional options.
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `customer_id` - The ID of the customer to retrieve payment intents for.
+/// * `req` - The request containing the options for listing payment intents.
+///
+/// # Returns
+///
+/// A `Result` containing a vector of `PaymentIntent` objects or an `AppError` if an error occurs.
 pub async fn get_customer_payment_intents(
     client: &Client,
     customer_id: &str,

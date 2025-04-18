@@ -13,18 +13,61 @@ use db::models::user::{AuthCredentials, User};
 use sqlx::PgPool;
 use uuid::Uuid;
 
+/// Checks if a user exists with the given email.
+///
+/// # Arguments
+///
+/// * `pool` - A reference to the database connection pool.
+/// * `email` - The email to check for existence.
+///
+/// # Returns
+///
+/// A `Result` containing a boolean indicating whether a user exists with the given email.
 pub async fn exists_user_by_email(pool: &PgPool, email: String) -> Res<bool> {
     db::user::exists_user_by_email(pool, email).await
 }
+
+/// Retrieves a user by email.
+///
+/// # Arguments
+///
+/// * `pool` - A reference to the database connection pool.
+/// * `email` - The email of the user to retrieve.
+///
+/// # Returns
+///
+/// A `Result` containing the `User` object or an `AppError` if an error occurs.
 pub async fn get_user_by_email(pool: &PgPool, email: String) -> Res<User> {
     db::user::get_user_by_email(pool, email).await
 }
+
+/// Retrieves a user by ID.
+///
+/// # Arguments
+///
+/// * `pool` - A reference to the database connection pool.
+/// * `user_id` - The ID of the user to retrieve.
+///
+/// # Returns
+///
+/// A `Result` containing the `User` object or an `AppError` if an error occurs.
 pub async fn get_user_by_id(pool: &PgPool, user_id: Uuid) -> Res<User> {
     db::user::get_user_by_id(pool, user_id).await
 }
 
 /// Inserts user record and OAuth data to the database.
 /// Used when signing in using OAuth provider.
+///
+/// # Arguments
+///
+/// * `pool` - A reference to the database connection pool.
+/// * `user_data` - The OAuth user data.
+/// * `provider` - The OAuth provider.
+/// * `config` - The application configuration.
+///
+/// # Returns
+///
+/// A `Result` containing the `User` object or an `AppError` if an error occurs.
 pub async fn create_user_with_oauth(
     pool: &PgPool,
     user_data: OAuthUserData,
@@ -41,7 +84,8 @@ pub async fn create_user_with_oauth(
             last_name: user_data.last_name.clone(),
             email: user_data.email.clone(),
         },
-    ).await?;
+    )
+    .await?;
 
     // insert user
     let user = db::user::insert_user(
@@ -52,7 +96,7 @@ pub async fn create_user_with_oauth(
             last_name: user_data.last_name,
             company_name: None,
             verification_origin: UserVerificationOrigin::OAuth,
-            stripe_customer_id
+            stripe_customer_id,
         },
     )
     .await?;
@@ -74,6 +118,16 @@ pub async fn create_user_with_oauth(
 
 /// Inserts user record and credentials to the database.
 /// User when signing in using credentials.
+///
+/// # Arguments
+///
+/// * `pool` - A reference to the database connection pool.
+/// * `req` - The registration request.
+/// * `config` - The application configuration.
+///
+/// # Returns
+///
+/// A `Result` containing the `User` object or an `AppError` if an error occurs.
 pub async fn create_user_with_credentials(
     pool: &PgPool,
     req: RegisterRequest,
@@ -89,7 +143,8 @@ pub async fn create_user_with_credentials(
             last_name: req.last_name.clone(),
             email: req.email.clone(),
         },
-    ).await?;
+    )
+    .await?;
 
     // insert user
     let user = db::user::insert_user(
@@ -132,6 +187,17 @@ struct CreateCustomerSpec {
     last_name: String,
     email: String,
 }
+
+/// Creates a Stripe customer and subscribes them to the free plan.
+///
+/// # Arguments
+///
+/// * `config` - The application configuration.
+/// * `spec` - The specification for creating the customer.
+///
+/// # Returns
+///
+/// A `Result` containing the Stripe customer ID or an `AppError` if an error occurs.
 async fn create_stripe_customer(config: &Config, spec: CreateCustomerSpec) -> Res<String> {
     let client = stripe::create_client(&config.stripe_secret_key);
     let name = format!("{} {}", spec.first_name, spec.last_name);

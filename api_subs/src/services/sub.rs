@@ -13,6 +13,14 @@ use crate::{
 };
 
 /// Gets a list of subscription plans.
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+///
+/// # Returns
+///
+/// A `Result` containing a vector of `SubscriptionPlan` objects or an `AppError` if an error occurs.
 pub async fn get_subscription_plans(client: &Client) -> Res<Vec<SubscriptionPlan>> {
     let params = ListPrices {
         active: Some(true),
@@ -50,6 +58,16 @@ pub async fn get_subscription_plans(client: &Client) -> Res<Vec<SubscriptionPlan
 
 /// Gets customer's subscription.
 /// Returns None if customer is not subscribed to any plan.
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `customer_id` - The ID of the customer.
+///
+/// # Returns
+///
+/// A `Result` containing an `Option` of `UserSubscription` or an `AppError` if an error occurs.
+/// Returns `None` if the customer is not subscribed to any plan.
 pub async fn get_user_subscription(
     client: &Client,
     customer_id: &str,
@@ -93,6 +111,15 @@ pub async fn get_user_subscription(
 /// Subscribes the given Stripe customer to the free plan.
 ///
 /// `free_price_id` should be the Price.id of your $0/month plan.
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `customer_id` - The ID of the customer to subscribe to the free plan.
+///
+/// # Returns
+///
+/// A `Result` indicating success or an `AppError` if an error occurs.
 pub async fn subscribe_user_to_free_plan(client: &Client, customer_id: CustomerId) -> Res<()> {
     // find price ID of the free plan
     let plans = get_subscription_plans(client).await?;
@@ -121,6 +148,16 @@ pub async fn subscribe_user_to_free_plan(client: &Client, customer_id: CustomerI
 }
 
 /// Creates Enterprise subscription.
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `customer` - A reference to the Stripe customer object.
+/// * `req` - The request containing the information for creating the enterprise subscription.
+///
+/// # Returns
+///
+/// A `Result` containing a `CheckoutSession` object or an `AppError` if an error occurs.
 pub async fn create_enterprise_subscription(
     client: &Client,
     customer: &Customer,
@@ -149,6 +186,16 @@ pub async fn create_enterprise_subscription(
 }
 
 /// Update if the given subscription should be renewed
+///
+/// # Arguments
+///
+/// * `client` - A reference to the Stripe client.
+/// * `subscription_id` - The ID of the subscription to update.
+/// * `auto_renew` - A boolean indicating whether the subscription should auto-renew.
+///
+/// # Returns
+///
+/// A `Result` containing the updated `UserSubscription` object or an `AppError` if an error occurs.
 pub async fn update_subscription_auto_renew(
     client: &Client,
     subscription_id: &str,
