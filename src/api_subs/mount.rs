@@ -1,5 +1,5 @@
-use actix_web::web::{self};
 use crate::api_subs::routes;
+use actix_web::web::{self};
 
 pub fn mount_secure_subs() -> actix_web::Scope {
     web::scope("/sub")
@@ -18,4 +18,8 @@ pub fn mount_pay() -> actix_web::Scope {
 }
 pub fn mount_webhook() -> actix_web::Scope {
     web::scope("/pay").service(routes::pay::post_webhook)
+}
+
+pub fn mount_server_calls() -> actix_web::Scope {
+    web::scope("/server").service(routes::server_calls::create_customer)
 }

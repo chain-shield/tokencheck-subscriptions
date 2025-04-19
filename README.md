@@ -38,6 +38,7 @@ src/
 - **Authentication**: OAuth integration with multiple providers
 - **Subscription Management**: Complete subscription lifecycle with Stripe
 - **Payment Processing**: Secure payment handling with Stripe
+- **Server-to-Server API**: Internal API for microservice communication
 - **Logging**: Comprehensive request and response logging
 - **Error Handling**: Consistent error handling throughout the application
 
@@ -286,6 +287,37 @@ This application provides a complete subscription management system with Stripe 
 4. **Handle Success/Cancel**: Stripe redirects to your success/cancel URL
 5. **Verify Subscription**: Call `/api/secured/sub/current` to check subscription status
 6. **Manage Subscription**: Update auto-renewal or handle refunds as needed
+
+### Server-to-Server API
+
+This application provides endpoints for other microservices to interact with the subscription system:
+
+#### Create Stripe Customer
+- **Endpoint**: `POST /api/server/create-customer`
+- **Authentication**: None (internal API)
+- **Request Body**:
+  ```json
+  {
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com"
+  }
+  ```
+- **Response**: JSON object with Stripe customer ID
+- **Example**:
+  ```javascript
+  const response = await fetch('http://localhost:8081/api/server/create-customer', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      first_name: "John",
+      last_name: "Doe",
+      email: "john.doe@example.com"
+    })
+  });
+  const data = await response.json();
+  // data.customer_id contains the Stripe customer ID
+  ```
 
 ### Testing Stripe Integration
 

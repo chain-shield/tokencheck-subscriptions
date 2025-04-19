@@ -5,6 +5,7 @@
 pub mod api_subs {
     pub mod routes {
         pub mod pay;
+        pub mod server_calls;
         pub mod sub;
     }
 
@@ -35,6 +36,7 @@ pub mod api_subs {
 pub mod auth {
     pub mod middleware {
         pub mod auth;
+        pub mod validate_api_key;
     }
 
     pub mod services {

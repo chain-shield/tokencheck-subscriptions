@@ -2,7 +2,12 @@ mod cors;
 
 use actix_web::{web, App, HttpServer};
 use std::str::FromStr;
-use tokencheck_subscriptions::{common::env_config::Config, api_subs, auth, logger};
+use tokencheck_subscriptions::{
+    api_subs,
+    auth::{self, middleware::validate_api_key::ValidateApiKeyMiddleware},
+    common::env_config::Config,
+    logger,
+};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -68,7 +73,7 @@ async fn main() -> std::io::Result<()> {
     let pool = std::sync::Arc::new(
         sqlx::PgPool::connect_with(options)
             .await
-            .expect("Failed to connect to database")
+            .expect("Failed to connect to database"),
     );
 
     HttpServer::new(move || {
@@ -81,9 +86,20 @@ async fn main() -> std::io::Result<()> {
                 web::scope("/api")
                     .service(api_subs::mount::mount_webhook())
                     .service(api_subs::mount::mount_subs())
+                    .service(api_subs::mount::mount_server_calls())
+                    .service(
+                        web::scope("/stripe")
+                            .wrap(ValidateApiKeyMiddleware::new(
+                                config_data.subs_service_api_keys.clone(),
+                            ))
+                            .service(api_subs::routes::server_calls::create_customer),
+                    )
                     .service(
                         web::scope("/secured")
-                            .wrap(auth::AuthMiddleware::new(config_data.auth_service_url.clone(), config_data.auth_api_key.clone()))
+                            .wrap(auth::AuthMiddleware::new(
+                                config_data.auth_service_url.clone(),
+                                config_data.auth_api_key.clone(),
+                            ))
                             .service(api_subs::mount::mount_pay())
                             .service(api_subs::mount::mount_secure_subs()),
                     ),

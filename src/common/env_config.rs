@@ -10,6 +10,9 @@ use std::{env, sync::Arc};
 /// logging preferences, web application authentication callback URL,
 /// and GitHub client configuration.
 pub struct Config {
+    // server to server api keys, other micro services MUST
+    // use one of these keys to make call to this service
+    pub subs_service_api_keys: Vec<String>,
     // url to reach authentcation service
     pub auth_service_url: String,
     // api key REQUIRED to make validate token call to auth service
@@ -139,6 +142,11 @@ impl Config {
         let stripe_webhook_secret = env::var("STRIPE_WEBHOOK_SECRET").unwrap_or_default();
 
         Arc::new(Config {
+            subs_service_api_keys: env::var("SUBS_SERVICE_API_KEYS")
+                .unwrap_or_default()
+                .split(',')
+                .map(|s| s.trim().to_string())
+                .collect(),
             auth_service_url: env::var("AUTH_SERVICE_URL").expect("AUTH_SERVICE_URL must be set"),
             auth_api_key: env::var("AUTH_API_KEY").expect("AUTH_API_KEY must be set"),
             db_ssl_mode: env::var("DB_SSL_MODE").expect("DB_SSL_MODE must be set"),
