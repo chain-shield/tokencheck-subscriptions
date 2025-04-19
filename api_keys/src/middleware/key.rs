@@ -62,6 +62,7 @@ where
 
         Box::pin(async move {
             let pool = &***req.app_data::<web::Data<Arc<PgPool>>>().unwrap().clone();
+            // Extract key claims from the request
             match key::get_key_claims_or_error(&req) {
                 Err(response) => {
                     return Ok(req.into_response(response));

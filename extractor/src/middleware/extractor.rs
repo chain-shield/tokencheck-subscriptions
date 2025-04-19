@@ -1,12 +1,17 @@
 use std::{future::Future, pin::Pin, sync::Arc};
 
 use actix_web::{
-    dev::{forward_ready, Service, ServiceRequest, ServiceResponse, Transform}, web, Error, HttpMessage
+    Error, HttpMessage,
+    dev::{Service, ServiceRequest, ServiceResponse, Transform, forward_ready},
+    web,
 };
 use futures::future::{Ready, ok};
 
 use common::{
-    env_config::Config, error::Res, jwt::{self, JwtClaims}, key::{self, KeyClaims}
+    env_config::Config,
+    error::Res,
+    jwt::{self, JwtClaims},
+    key::{self, KeyClaims},
 };
 
 pub struct ExtractionMiddleware {}
@@ -74,11 +79,13 @@ where
         let srv = Arc::clone(&self.service);
 
         Box::pin(async move {
+            // Extract and validate JWT token from the Authorization header
             if let Some(token) = auth_header {
                 // validate token and insert claims to request object for future use
                 let claims_res = jwt::validate_jwt(&token, &jwt_config.secret);
                 req.extensions_mut().insert::<Res<JwtClaims>>(claims_res);
             }
+            // Extract and validate API key from the X-API-KEY header
             if let Some(key) = api_key {
                 // parse the api key and insert claims to request object for future use
                 let claims_res = key::KeyClaims::from_key(key.as_str());

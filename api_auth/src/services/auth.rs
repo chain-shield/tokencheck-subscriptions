@@ -2,15 +2,30 @@ use argon2::{
     Argon2,
     password_hash::{PasswordHash, PasswordVerifier},
 };
-use common::{env_config::Config, error::{AppError, Res}};
+use common::{
+    env_config::Config,
+    error::{AppError, Res},
+};
 use db::models::user::User;
 use oauth2::basic::*;
 use oauth2::*;
 use sqlx::PgPool;
 
-use crate::{dtos::auth::{LoginRequest, OAuthUserData}, misc::oauth::OAuthProvider};
+use crate::{
+    dtos::auth::{LoginRequest, OAuthUserData},
+    misc::oauth::OAuthProvider,
+};
 
 /// Create OAuth client object.
+///
+/// # Arguments
+///
+/// * `provider` - The OAuth provider.
+/// * `config` - The application configuration.
+///
+/// # Returns
+///
+/// A `Client` object for the specified OAuth provider.
 pub fn create_oauth_client(
     provider: &OAuthProvider,
     config: &Config,
@@ -57,11 +72,19 @@ pub fn create_oauth_client(
 /// Authenticates existing user.
 /// If user does not exists, returns 400
 /// If password hash does not match stored password hash, returns 401
+///
+/// # Arguments
+///
+/// * `pool` - A reference to the database connection pool.
+/// * `login_data` - The login data.
+///
+/// # Returns
+///
+/// A `Result` containing the `User` object or an `AppError` if an error occurs.
 pub async fn authenticate_user(pool: &PgPool, login_data: &LoginRequest) -> Res<User> {
-    let (user, credentials) =
-        db::user::get_user_with_password_hash(pool, login_data.email.clone())
-            .await
-            .map_err(|_| AppError::BadRequest("User with this email does not exist".to_string()))?;
+    let (user, credentials) = db::user::get_user_with_password_hash(pool, login_data.email.clone())
+        .await
+        .map_err(|_| AppError::BadRequest("User with this email does not exist".to_string()))?;
 
     let parsed_hash = PasswordHash::new(&credentials.password_hash).unwrap();
     let is_valid = Argon2::default()
@@ -76,6 +99,15 @@ pub async fn authenticate_user(pool: &PgPool, login_data: &LoginRequest) -> Res<
 }
 
 /// Fetches additional user data from providers OAuth API.
+///
+/// # Arguments
+///
+/// * `provider` - The OAuth provider.
+/// * `access_token` - The access token.
+///
+/// # Returns
+///
+/// A `Result` containing the `OAuthUserData` object or an `AppError` if an error occurs.
 pub async fn fetch_provider_user_data(
     provider: &OAuthProvider,
     access_token: &str,

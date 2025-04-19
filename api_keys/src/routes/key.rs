@@ -12,6 +12,16 @@ use crate::{
     service,
 };
 
+/// Retrieves all API keys for the authenticated user.
+///
+/// # Arguments
+///
+/// * `claims` - The JWT claims of the authenticated user.
+/// * `pool` - The database connection pool.
+///
+/// # Returns
+///
+/// A `Result` containing a `Success` response with the list of API keys or an `AppError` if an error occurs.
 #[get("/keys")]
 pub async fn get_keys(
     claims: web::ReqData<JwtClaims>,
@@ -22,6 +32,18 @@ pub async fn get_keys(
     Success::ok(keys)
 }
 
+/// Generates a new API key for the authenticated user.
+///
+/// # Arguments
+///
+/// * `config` - The application configuration.
+/// * `claims` - The JWT claims of the authenticated user.
+/// * `pool` - The database connection pool.
+/// * `req` - The request containing the information for creating the key.
+///
+/// # Returns
+///
+/// A `Result` containing a `Success` response with the created API key or an `AppError` if an error occurs.
 #[post("/generate")]
 pub async fn post_generate_key(
     config: web::Data<Arc<Config>>,
@@ -39,6 +61,16 @@ pub async fn post_generate_key(
     Success::created(key)
 }
 
+/// Revokes an API key.
+///
+/// # Arguments
+///
+/// * `pool` - The database connection pool.
+/// * `req` - The request containing the ID of the key to revoke.
+///
+/// # Returns
+///
+/// A `Result` containing a `Success` response with the revoked API key or an `AppError` if an error occurs.
 #[post("/revoke")]
 pub async fn post_revoke(
     pool: web::Data<Arc<PgPool>>,

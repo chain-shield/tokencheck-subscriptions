@@ -12,6 +12,7 @@ pub enum OAuthProvider {
     X,
 }
 impl OAuthProvider {
+    /// Returns the OAuth provider as a string.
     pub fn as_str(&self) -> &'static str {
         match self {
             OAuthProvider::GitHub => "github",
@@ -21,6 +22,8 @@ impl OAuthProvider {
             OAuthProvider::X => "x",
         }
     }
+
+    /// Creates an OAuth provider from a string.
     pub fn from_str(s: &str) -> Res<Self> {
         match s {
             "github" => Ok(OAuthProvider::GitHub),
@@ -34,6 +37,8 @@ impl OAuthProvider {
             ))),
         }
     }
+
+    /// Returns the scopes for the OAuth provider.
     pub fn get_scopes(&self) -> Vec<&'static str> {
         match self {
             OAuthProvider::GitHub => vec!["user:email"],

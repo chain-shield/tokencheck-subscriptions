@@ -6,8 +6,8 @@ use actix_web::{
 };
 use api_subs::models::sub::SubscriptionPlan;
 
-use ::chrono::{Datelike, Duration};
-use chrono::{NaiveDate, Utc};
+use ::chrono::{/* Datelike, */ Duration};
+use chrono::{/* NaiveDate, */ Utc};
 use common::{
     error::AppError,
     key::{self},
@@ -90,6 +90,7 @@ where
         let srv = Rc::clone(&self.service);
 
         Box::pin(async move {
+            // Check if API key claims are present in the request
             if let Some(key_claims) = key::get_key_claims_or_error(&req).ok() {
                 // 1. Find the subscription plan based on claims
                 let plan = match plans.get(&key_claims.plan_id) {
@@ -152,18 +153,21 @@ where
                 let now = Utc::now();
                 let date_str = now.format("%Y-%m-%d").to_string();
                 let month_str = now.format("%Y-%m").to_string();
-                let key_id_str = key_claims.key_id.to_string(); // Use API key ID for scoping
+                let user_id_str = key_claims.user_id.to_string();
 
-                let daily_key = format!("quota:{}:daily:{}", key_id_str, date_str);
-                let monthly_key = format!("quota:{}:monthly:{}", key_id_str, month_str);
+                // Create Redis keys for daily and monthly quotas
+                let daily_key = format!("quota:{}:daily:{}", user_id_str, date_str);
+                let monthly_key = format!("quota:{}:monthly:{}", user_id_str, month_str);
 
+                // Calculate TTLs for daily and monthly quotas
                 let seconds_until_midnight = calculate_seconds_until_midnight(now);
-                let seconds_until_end_of_month = calculate_seconds_until_end_of_month(now);
+                // let seconds_until_end_of_month = calculate_seconds_until_end_of_month(now);
 
                 // 5. Check and Increment Limits (Atomic Check-then-Increment is tricky without Lua)
                 // Approach: Increment first, check result, decrement if over limit.
 
                 // --- Daily Check ---
+                // Increment the daily count in Redis
                 let daily_count: Result<u64, redis::RedisError> =
                     redis_conn.incr(&daily_key, 1).await;
 
@@ -176,6 +180,7 @@ where
                                 .await;
                         }
 
+                        // Check if daily limit is exceeded
                         if count > daily_limit {
                             // Decrement back as we exceeded the limit
                             let _: Result<u64, redis::RedisError> =
@@ -183,61 +188,63 @@ where
 
                             return Ok(req.error_response(AppError::TooManyRequests(format!(
                                 "Daily limit exceeded for key {}. Count: {}, Limit: {}",
-                                key_id_str, count, daily_limit
+                                user_id_str, count, daily_limit
                             ))));
                         }
                     }
                     Err(e) => {
                         return Ok(req.error_response(AppError::Internal(format!(
                             "Redis error incrementing daily count for key {}: {}",
-                            key_id_str, e
+                            user_id_str, e
                         ))));
                     }
                 }
 
                 // --- Monthly Check ---
+                // Increment the monthly count in Redis
                 let monthly_count: Result<u64, redis::RedisError> =
                     redis_conn.incr(&monthly_key, 1).await;
 
-                match monthly_count {
-                    Ok(count) => {
-                        // Set expiry only if the key was newly created (count is 1)
-                        if count == 1 {
-                            let _: Result<(), redis::RedisError> = redis_conn
-                                .expire(&monthly_key, seconds_until_end_of_month as i64)
-                                .await;
-                        }
+                // match monthly_count {
+                //     Ok(count) => {
+                //         // Set expiry only if the key was newly created (count is 1)
+                //         if count == 1 {
+                //             let _: Result<(), redis::RedisError> = redis_conn
+                //                 .expire(&monthly_key, seconds_until_end_of_month as i64)
+                //                 .await;
+                //         }
 
-                        if count > monthly_limit {
-                            // Decrement back BOTH counters as this request is fully rejected
-                            let _: Result<u64, redis::RedisError> =
-                                redis_conn.decr(&monthly_key, 1).await;
-                            let _: Result<u64, redis::RedisError> =
-                                redis_conn.decr(&daily_key, 1).await; // Also undo daily incr
-                            // Log decrement errors if needed
+                //         // Check if monthly limit is exceeded
+                //         if count > monthly_limit {
+                //             // Decrement back BOTH counters as this request is fully rejected
+                //             let _: Result<u64, redis::RedisError> =
+                //                 redis_conn.decr(&monthly_key, 1).await;
+                //             let _: Result<u64, redis::RedisError> =
+                //                 redis_conn.decr(&daily_key, 1).await; // Also undo daily incr
+                //             // Log decrement errors if needed
 
-                            return Ok(req.error_response(AppError::TooManyRequests(format!(
-                                "Monthly limit exceeded for key {}. Count: {}, Limit: {}",
-                                key_id_str, count, monthly_limit
-                            ))));
-                        }
-                    }
-                    Err(e) => {
-                        // We already incremented daily, attempt to decrement it back
-                        let _: Result<u64, redis::RedisError> =
-                            redis_conn.decr(&daily_key, 1).await;
+                //             return Ok(req.error_response(AppError::TooManyRequests(format!(
+                //                 "Monthly limit exceeded for key {}. Count: {}, Limit: {}",
+                //                 user_id_str, count, monthly_limit
+                //             ))));
+                //         }
+                //     }
+                //     Err(e) => {
+                //         // We already incremented daily, attempt to decrement it back
+                //         let _: Result<u64, redis::RedisError> =
+                //             redis_conn.decr(&daily_key, 1).await;
 
-                        return Ok(req.error_response(AppError::Internal(format!(
-                            "Redis error incrementing monthly count for key {}: {}",
-                            key_id_str, e
-                        ))));
-                    }
-                }
+                //         return Ok(req.error_response(AppError::Internal(format!(
+                //             "Redis error incrementing monthly count for key {}: {}",
+                //             user_id_str, e
+                //         ))));
+                //     }
+                // }
 
                 // 6. Limits OK - Forward request to the next service
                 log::debug!(
                     "Limits OK for key {}. Daily: {}/{}, Monthly: {}/{}",
-                    key_id_str,
+                    user_id_str,
                     daily_count.unwrap_or(0), // Should be Ok here
                     daily_limit,
                     monthly_count.unwrap_or(0), // Should be Ok here
@@ -269,33 +276,33 @@ fn calculate_seconds_until_midnight(now: chrono::DateTime<Utc>) -> u64 {
         .max(0) as u64
 }
 
-fn calculate_seconds_until_end_of_month(now: chrono::DateTime<Utc>) -> u64 {
-    let current_month = now.month();
-    let current_year = now.year();
+// fn calculate_seconds_until_end_of_month(now: chrono::DateTime<Utc>) -> u64 {
+//     let current_month = now.month();
+//     let current_year = now.year();
 
-    let next_month_year;
-    let next_month;
+//     let next_month_year;
+//     let next_month;
 
-    if current_month == 12 {
-        next_month = 1;
-        next_month_year = current_year + 1;
-    } else {
-        next_month = current_month + 1;
-        next_month_year = current_year;
-    }
+//     if current_month == 12 {
+//         next_month = 1;
+//         next_month_year = current_year + 1;
+//     } else {
+//         next_month = current_month + 1;
+//         next_month_year = current_year;
+//     }
 
-    // First day of the next month
-    let first_day_next_month = NaiveDate::from_ymd_opt(next_month_year, next_month, 1)
-        .unwrap()
-        .and_hms_opt(0, 0, 0)
-        .unwrap();
+//     // First day of the next month
+//     let first_day_next_month = NaiveDate::from_ymd_opt(next_month_year, next_month, 1)
+//         .unwrap()
+//         .and_hms_opt(0, 0, 0)
+//         .unwrap();
 
-    // Ensure we are using UTC for calculation consistency
-    let first_day_next_month_utc =
-        chrono::DateTime::<Utc>::from_naive_utc_and_offset(first_day_next_month, Utc);
+//     // Ensure we are using UTC for calculation consistency
+//     let first_day_next_month_utc =
+//         chrono::DateTime::<Utc>::from_naive_utc_and_offset(first_day_next_month, Utc);
 
-    first_day_next_month_utc
-        .signed_duration_since(now)
-        .num_seconds()
-        .max(0) as u64
-}
+//     first_day_next_month_utc
+//         .signed_duration_since(now)
+//         .num_seconds()
+//         .max(0) as u64
+// }
