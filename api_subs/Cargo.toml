@@ -11,3 +11,5 @@ serde = { workspace = true }
 log = { workspace = true }
 actix-web = { workspace = true }
 actix-session = { workspace = true }
+redis = { workspace = true }
+deadpool-redis = { workspace = true }

@@ -1,4 +1,5 @@
 mod cors;
+mod redis;
 
 use actix_web::{
     App, HttpServer,
@@ -23,28 +24,22 @@ async fn main() -> std::io::Result<()> {
     }
 
     // init db connection
-    let pool = db::setup(&config.database_url, is_production)
+    let psql_pool = db::setup(&config.database_url, is_production)
         .await
         .expect("Failed to set up database");
 
-    // get all subscription plans from Stripe
-    let client = common::stripe::create_client(&config.stripe_secret_key);
-    let plans = api_subs::services::sub::get_subscription_plans(&client)
-        .await
-        .expect("Failed to fetch subscription plans from Stripe API");
-
     // init Redis
-    let redis_client =
-        redis::Client::open(config.redis_url.clone()).expect("Failed to create Redis client");
-
+    let redis_pool = redis::setup_redis(&config).await;
+    
+    // init Stripe
+    api_subs::setup(&config, redis_pool.clone()).await;
+    
     HttpServer::new(move || {
         let secret = config_data.jwt_config.secret.as_bytes();
-        let redis_client = redis_client.clone();
-        let plans_data = plans.clone();
         App::new()
-            .app_data(web::Data::new(pool.clone()))
+            .app_data(web::Data::new(redis_pool.clone()))
+            .app_data(web::Data::new(psql_pool.clone()))
             .app_data(web::Data::new(config_data.clone()))
-            .wrap(limiter::global_middleware(10)) // max 10 requests per second
             .wrap(logger::middleware()) // 4th
             .wrap(extractor::middleware()) // 3rd
             .wrap(cors::middleware(&origin)) // 2nd
@@ -53,6 +48,7 @@ async fn main() -> std::io::Result<()> {
                 is_production,
                 secret,
             )) // 1st
+            .wrap(limiter::global_middleware(10)) // max 10 requests per second
             .service(
                 web::scope("/api")
                     .service(api_auth::mount_auth())
@@ -68,7 +64,7 @@ async fn main() -> std::io::Result<()> {
                     .service(
                         web::scope("/v1")
                             .wrap(api_keys::middleware())
-                            .wrap(limiter::quota_middleware(plans_data, redis_client))
+                            .wrap(limiter::quota_middleware())
                             .service(checker::mount_checker()),
                     ),
             )

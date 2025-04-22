@@ -38,6 +38,7 @@ async fn post_webhook(
     payload: String,
     req: actix_web::HttpRequest,
     config: web::Data<Arc<Config>>,
+    redis_pool: web::Data<deadpool_redis::Pool>
 ) -> Res<impl Responder> {
     let signature = match req.headers().get("stripe-signature") {
         Some(signature) => signature.to_str().unwrap_or(""),
@@ -45,7 +46,7 @@ async fn post_webhook(
     };
 
     let event = services::pay::construct_event(&payload, signature, &config.stripe_webhook_secret)?;
-    services::pay::process_webhook_event(event)?;
+    services::pay::process_webhook_event(event, &redis_pool.into_inner()).await?;
 
     Success::ok("Webhook processed successfully")
 }

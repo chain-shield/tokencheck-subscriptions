@@ -16,6 +16,8 @@ This module provides API subscription functionality using Actix Web, including h
     * `500 Internal Server Error`: For processing errors.
 * **Note:** This endpoint is called by Stripe's servers, not directly from your frontend.
 
+To forward Stripe API calls to the webhook, use this command: `stripe listen --forward-to localhost:8080/api/pay/webhook`
+
 ### 2. `POST /refund`
 
 * **Purpose:** Processes a refund for a payment.

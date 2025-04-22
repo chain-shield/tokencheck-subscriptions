@@ -1,4 +1,5 @@
 use common::error::{AppError, Res};
+use redis::AsyncCommands;
 use serde_json::json;
 use stripe::{
     CheckoutSession, CheckoutSessionMode, Client, CreateCheckoutSession, CreateRefund, Currency,
@@ -141,6 +142,71 @@ pub fn construct_event(payload: &str, signature: &str, webhook_secret: &str) -> 
     }
 }
 
+/// Decide whether a Stripe Product represents a subscription plan
+fn is_subscription_product(prod: &stripe::Product) -> bool {
+    match &prod.metadata {
+        Some(meta) => {
+            // Heuristic: subscription plans must declare both limits in metadata
+            meta.contains_key("daily_api_limit") && meta.contains_key("monthly_api_limit")
+        }
+        None => false,
+    }
+}
+
+/// Update Redis hash for product limits
+async fn update_product_limits(
+    prod: &stripe::Product,
+    redis_pool: &deadpool_redis::Pool,
+) -> Result<(), AppError> {
+    let price_id = prod.default_price.clone().ok_or(AppError::Internal("No price on product object".into()))?;
+    let price_id = match price_id {
+        stripe::Expandable::Id(x) => x,
+        stripe::Expandable::Object(_) => {
+            return Err(AppError::Internal("Price id is not an ID".into()))
+        }
+    };
+    let key = format!("plan:{}:limits", price_id);
+    let meta = &prod
+        .metadata.clone()
+        .ok_or(AppError::Internal("Product has no metadata".into()))?;
+    let daily = meta
+        .get("daily_api_limit")
+        .map(String::as_str)
+        .unwrap_or("0");
+    let monthly = meta
+        .get("monthly_api_limit")
+        .map(String::as_str)
+        .unwrap_or("0");
+
+    let mut conn = redis_pool
+        .get()
+        .await
+        .map_err(|e| AppError::Internal(format!("Redis pool error: {}", e)))?;
+    let _: () = conn.hset_multiple(
+        &key,
+        &[("daily_api_limit", daily), ("monthly_api_limit", monthly)],
+    )
+    .await
+    .map_err(|e| AppError::Internal(format!("Redis write error: {}", e)))?;
+    Ok(())
+}
+
+/// Delete Redis hash for product limits
+async fn delete_product_limits(
+    prod_id: &str,
+    redis_pool: &deadpool_redis::Pool,
+) -> Result<(), AppError> {
+    let key = format!("plan:{}:limits", prod_id);
+    let mut conn = redis_pool
+        .get()
+        .await
+        .map_err(|e| AppError::Internal(format!("Redis pool error: {}", e)))?;
+    let _: () = conn.del(&key)
+        .await
+        .map_err(|e| AppError::Internal(format!("Redis delete error: {}", e)))?;
+    Ok(())
+}
+
 /// Processes the webhook event.
 ///
 /// # Arguments
@@ -150,35 +216,32 @@ pub fn construct_event(payload: &str, signature: &str, webhook_secret: &str) -> 
 /// # Returns
 ///
 /// A `Result` indicating success or an `AppError` if an error occurs.
-pub fn process_webhook_event(event: Event) -> Res<()> {
+pub async fn process_webhook_event(event: Event, redis_pool: &deadpool_redis::Pool) -> Res<()> {
     log::info!("Processing webhook event: {}", event.type_);
 
     match event.type_ {
-        EventType::PaymentIntentSucceeded => {
-            if let EventObject::PaymentIntent(payment_intent) = event.data.object {
-                log::info!("PaymentIntent was successful: {}", payment_intent.id);
+        EventType::ProductCreated | EventType::ProductUpdated => {
+            if let EventObject::Product(prod) = event.data.object {
+                if is_subscription_product(&prod) {
+                    update_product_limits(&prod, redis_pool).await?;
+                    log::info!("Updated limits in Redis for plan {}", prod.id);
+                } else {
+                    log::debug!("Ignored non‑subscription product {}", prod.id);
+                }
             }
         }
-        EventType::CheckoutSessionCompleted => {
-            if let EventObject::CheckoutSession(session) = event.data.object {
-                log::info!("Checkout session completed: {}", session.id);
+
+        EventType::ProductDeleted => {
+            if let EventObject::Product(prod) = event.data.object {
+                if is_subscription_product(&prod) {
+                    delete_product_limits(&prod.id, redis_pool).await?;
+                    log::info!("Deleted limits in Redis for plan {}", prod.id);
+                } else {
+                    log::debug!("Ignored deletion of non‑subscription product {}", prod.id);
+                }
             }
         }
-        EventType::CustomerSubscriptionCreated => {
-            if let EventObject::Subscription(subscription) = event.data.object {
-                log::info!("Subscription created: {}", subscription.id);
-            }
-        }
-        EventType::CustomerSubscriptionUpdated => {
-            if let EventObject::Subscription(subscription) = event.data.object {
-                log::info!("Subscription updated: {}", subscription.id);
-            }
-        }
-        EventType::CustomerSubscriptionDeleted => {
-            if let EventObject::Subscription(subscription) = event.data.object {
-                log::info!("Subscription deleted: {}", subscription.id);
-            }
-        }
+
         _ => {
             log::info!("Unhandled event type: {}", event.type_);
         }
