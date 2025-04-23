@@ -1,5 +1,5 @@
-use actix_web::{Responder, get, post, web};
 use crate::common::{env_config::Config, error::AppError, http::Success, jwt::Claims, stripe};
+use actix_web::{get, post, web, Responder};
 use std::sync::Arc;
 
 use crate::api_subs::{
@@ -101,7 +101,10 @@ pub async fn post_subscribe(
     req: web::Json<SubscriptionCreateRequest>,
     config: web::Data<Arc<Config>>,
 ) -> impl Responder {
+    log::info!("getting stripe client...");
     let client = stripe::create_client(&config.stripe_secret_key);
+
+    log::info!("getting stripe customer...");
     let customer = services::pay::get_customer(&client, &claims.stripe_customer_id).await?;
 
     let stripe_req = SubscriptionRequest {
@@ -110,6 +113,7 @@ pub async fn post_subscribe(
         cancel_url: req.cancel_url.clone(),
     };
 
+    log::info!("creating stripe session...");
     let session =
         services::pay::create_subscription_session(&client, &customer, stripe_req).await?;
 

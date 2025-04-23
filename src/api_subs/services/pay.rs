@@ -44,6 +44,8 @@ pub async fn create_subscription_session(
         customer: Some(customer.id.clone()),
         ..Default::default()
     };
+
+    log::info!("creating user subscription");
     CheckoutSession::create(&client, params)
         .await
         .map_err(AppError::from)

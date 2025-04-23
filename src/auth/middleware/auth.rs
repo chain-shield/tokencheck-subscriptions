@@ -29,7 +29,7 @@ use actix_web::{
 };
 use futures::future::{ok, Ready};
 
-use crate::auth::services::auth_client::AuthClient;
+use crate::{auth::services::auth_client::AuthClient, Claims};
 
 /// Authentication middleware for securing API endpoints.
 ///
@@ -183,9 +183,20 @@ where
             if let Some(token) = token_value {
                 // Validate token and insert claims to request object for future usage
                 match auth_client.validate_token(&token).await {
-                    Ok(claims) => {
+                    Ok(token_validation_response) => {
                         // Add the validated claims to the request extensions
                         // This makes the claims available to route handlers
+                        log::info!(
+                            "claims to send to route handlers: {:?}",
+                            token_validation_response
+                        );
+
+                        let claims = Claims {
+                            user_id: token_validation_response.user_id,
+                            stripe_customer_id: token_validation_response.stripe_customer_id,
+                            exp: token_validation_response.exp,
+                        };
+
                         req.extensions_mut().insert(claims);
 
                         // Continue processing the request with the wrapped service
