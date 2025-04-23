@@ -12,9 +12,8 @@ pub struct TokenValidationRequest {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TokenValidationResponse {
     pub user_id: Uuid,
-    pub exp: usize,
-    pub plan_id: Uuid,
-    pub sub_status: String,
+    pub stripe_customer_id: String,
+    pub exp: u32,
 }
 
 pub struct AuthClient {
@@ -39,7 +38,7 @@ impl AuthClient {
 
         info!(
             "Sending token validation request to {}",
-            self.auth_service_url
+            format!("{}/validate/validate-token", self.auth_service_url)
         );
         let response = self
             .client
@@ -49,7 +48,9 @@ impl AuthClient {
             .send()
             .await?;
 
-        if response.status() != StatusCode::OK {
+        log::info!("← auth service answered: {}", response.status());
+
+        if !response.status().is_success() {
             let error_response = response
                 .json::<serde_json::Value>()
                 .await
@@ -62,11 +63,9 @@ impl AuthClient {
             return Err(anyhow::anyhow!(message));
         }
 
+        log::info!("token validation sucessfull..");
         let token_response = response.json::<TokenValidationResponse>().await?;
-        info!(
-            "Token validated successfully for user_id: {}",
-            token_response.user_id
-        );
+        info!("... for user_id: {}", token_response.user_id);
         Ok(token_response)
     }
 }

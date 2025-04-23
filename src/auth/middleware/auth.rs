@@ -173,8 +173,8 @@ where
         // Create an authentication client to validate the token
         // Dereference Rc<String> to String for AuthClient::new
         let auth_client = AuthClient::new(
-            auth_service_url.as_ref().to_string(), // Convert Rc<String> to String
-            api_key.as_ref().to_string(),          // Convert Rc<String> to String
+            format!("{}", auth_service_url),
+            api_key.as_ref().to_string(), // Convert Rc<String> to String
         );
 
         let srv = Arc::clone(&self.service);
@@ -187,7 +187,7 @@ where
                         // Add the validated claims to the request extensions
                         // This makes the claims available to route handlers
                         req.extensions_mut().insert(claims);
-                        
+
                         // Continue processing the request with the wrapped service
                         srv.call(req).await.map(|res| res.map_into_boxed_body())
                     }

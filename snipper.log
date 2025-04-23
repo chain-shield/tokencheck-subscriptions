@@ -265,3 +265,175 @@
 [90m[2025-04-19 15:12:44][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::server_calls[0m] Creating stripe customer for Amit Mehta
 [90m[2025-04-19 15:12:44][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m201[0m] [33mPOST[0m [97m/api/stripe/create-customer[0m [90m(0ms)[0m user_id=[94mNone[0m params=[96m{}[0m
 [90m[2025-04-19 15:15:12][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94mNone[0m params=[96m{}[0m
+[90m[2025-04-23 12:03:39][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 12:03:39][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 12:03:39][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 12:10:04][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:06:20][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:06:22][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api
+[90m[2025-04-23 14:06:22][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:06:38][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:06:40][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api
+[90m[2025-04-23 14:06:40][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:25:18][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:25:20][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api
+[90m[2025-04-23 14:25:20][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:43:01][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 14:43:01][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:43:01][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 14:43:01][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:43:01][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:43:01][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:43:01][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:43:01][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:43:09][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 14:43:09][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 14:43:09][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 14:43:16][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:43:18][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/api/validate
+[90m[2025-04-23 14:43:18][0m [33mWARN[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Token validation failed: Failed to validate token
+[90m[2025-04-23 14:43:18][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:43:53][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:43:55][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/api/validate
+[90m[2025-04-23 14:43:55][0m [33mWARN[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Token validation failed: Failed to validate token
+[90m[2025-04-23 14:43:55][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:44:17][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 14:44:17][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:44:17][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:44:17][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 14:44:17][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:44:17][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:44:17][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:44:17][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:44:29][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 14:44:29][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 14:44:29][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 14:44:37][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:44:38][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate
+[90m[2025-04-23 14:44:38][0m [33mWARN[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Token validation failed: Failed to validate token
+[90m[2025-04-23 14:44:38][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:48:28][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 14:48:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:48:28][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 14:48:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:48:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:48:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:48:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:48:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:48:35][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 14:48:35][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 14:48:35][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 14:48:43][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:48:45][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-04-23 14:48:45][0m [33mWARN[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Token validation failed: Failed to validate token
+[90m[2025-04-23 14:48:45][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:49:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:49:40][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-04-23 14:49:40][0m [33mWARN[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Token validation failed: Failed to validate token
+[90m[2025-04-23 14:49:40][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:57:32][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 14:57:32][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:57:32][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:57:32][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:57:32][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:57:32][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 14:57:32][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:57:32][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 14:57:42][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 14:57:42][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 14:57:42][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 14:58:47][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api
+[90m[2025-04-23 14:58:47][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 14:59:49][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api
+[90m[2025-04-23 14:59:49][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 15:05:48][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 15:05:48][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:05:48][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:05:48][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:05:48][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:05:48][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:05:48][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 15:05:48][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:05:57][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 15:05:57][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 15:05:57][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 15:06:29][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 15:06:29][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:06:29][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:06:29][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:06:29][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 15:06:29][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:06:29][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:06:29][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:06:33][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 15:06:33][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 15:06:33][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 15:06:52][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 15:06:53][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-04-23 15:06:53][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 15:12:18][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 15:12:18][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 15:12:18][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:12:18][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:12:18][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:12:18][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:12:18][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:12:18][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:12:28][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 15:12:28][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 15:12:28][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 15:13:04][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 15:13:06][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-04-23 15:13:06][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-04-23 15:13:06][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 15:16:07][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 15:16:07][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:16:07][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:16:07][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:16:07][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:16:07][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:16:07][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:16:07][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 15:16:14][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 15:16:14][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 15:16:14][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 15:16:19][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-04-23 15:16:19][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-04-23 15:16:19][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 15:17:57][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 15:17:57][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:17:57][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 15:17:57][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:17:57][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:17:57][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:17:57][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:17:57][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:18:06][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 15:18:06][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 15:18:06][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 15:18:09][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-04-23 15:18:09][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-04-23 15:18:09][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfulll..
+[90m[2025-04-23 15:18:09][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m401[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 15:21:58][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-04-23 15:21:58][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:21:58][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:21:58][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:21:58][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:21:58][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:21:58][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-04-23 15:21:58][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-04-23 15:22:11][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-04-23 15:22:11][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-04-23 15:22:11][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-04-23 15:22:15][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-04-23 15:22:15][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-04-23 15:22:15][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-04-23 15:22:15][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: a0c50422-fb14-4f3e-9d64-b3c0ba2e0836
+[90m[2025-04-23 15:22:15][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[31m500[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 15:22:22][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
+[90m[2025-04-23 15:22:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-04-23 15:22:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-04-23 15:22:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-04-23 15:22:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: a0c50422-fb14-4f3e-9d64-b3c0ba2e0836
+[90m[2025-04-23 15:22:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[31m500[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94ma0c50422-fb14-4f3e-9d64-b3c0ba2e0836[0m params=[96m{}[0m
