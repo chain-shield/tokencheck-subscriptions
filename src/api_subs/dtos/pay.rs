@@ -61,3 +61,4 @@ pub struct PaymentIntent {
 pub struct PaymentIntentsResponse {
     pub intents: Vec<PaymentIntent>,
 }
+
