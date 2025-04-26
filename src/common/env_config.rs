@@ -20,6 +20,8 @@ pub struct Config {
     // SSL mode , do we need secure connection to db?
     pub db_ssl_mode: String,
     // environment
+    // jwt secret to decode jwt tokens
+    pub jwt_secret: String,
     pub environment: String, // development or production
     /// The URL of the database to connect to.
     pub database_url: String,
@@ -82,6 +84,7 @@ impl Config {
             db_ssl_mode: env::var("DB_SSL_MODE").expect("DB_SSL_MODE must be set"),
             environment: env::var("ENVIRONMENT").expect("ENVIRONMENT must be set"),
             database_url: env::var("DATABASE_URL").expect("DATABASE_URL must be set"),
+            jwt_secret: env::var("JWT_SECRET").expect("JWT_SECRET must be set"),
             server_host: env::var("IP").unwrap_or_else(|_| "127.0.0.1".to_string()),
             server_port: env::var("PORT")
                 .unwrap_or_else(|_| "8080".to_string())

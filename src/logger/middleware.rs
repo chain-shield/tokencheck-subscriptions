@@ -20,25 +20,25 @@
 //!     .service(/* routes */)
 //! ```
 
+use crate::common::jwt::Claims;
+use crate::db::models::log::Log;
 use actix_web::body::{self, BoxBody, MessageBody};
 use actix_web::dev::Payload;
 use actix_web::web::{self, Bytes};
 use actix_web::{
+    dev::{forward_ready, Service, ServiceRequest, ServiceResponse, Transform},
     Error,
-    dev::{Service, ServiceRequest, ServiceResponse, Transform, forward_ready},
 };
 use actix_web::{HttpMessage, HttpResponse, ResponseError};
 use chrono::Utc;
 use colored::Colorize;
-use crate::common::jwt::Claims;
-use crate::db::models::log::Log;
+use futures::future::{ready, LocalBoxFuture, Ready};
 use futures::StreamExt;
-use futures::future::{LocalBoxFuture, Ready, ready};
 use jsonwebtoken::{decode, DecodingKey, Validation};
 use log::{debug, info};
-use serde_json::{Value, json};
-use sqlx::PgPool;
+use serde_json::{json, Value};
 use sqlx::types::ipnetwork::IpNetwork;
+use sqlx::PgPool;
 use std::collections::HashMap;
 use std::env;
 use std::pin::Pin;
@@ -173,11 +173,11 @@ where
         let method = req.method().to_string();
         let path = req.path().to_string();
         let query_string = req.query_string().to_string();
-        
+
         // Extract user information from JWT token (if present)
         let claims = extract_claims_from_token(&req);
         let user_id = claims.as_ref().map(|c| c.user_id);
-        
+
         // Extract client information
         let ip_str = req
             .connection_info()
@@ -206,7 +206,7 @@ where
             } else {
                 Value::Null
             };
-            
+
             // Create a new stream with the captured body
             let new_stream: Pin<
                 Box<dyn futures::Stream<Item = Result<Bytes, actix_web::error::PayloadError>>>,
