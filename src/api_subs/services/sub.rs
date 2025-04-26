@@ -1,8 +1,10 @@
 use crate::common::error::{AppError, Res};
+use sqlx::PgPool;
 use stripe::{
-    CheckoutSession, Client, CreateProduct, Customer, CustomerId, ListPrices, Price, Product,
-    Subscription,
+    CheckoutSession, Client, CreateProduct, Customer, CustomerId, Expandable, ListPrices, Price,
+    Product, Subscription,
 };
+use uuid::Uuid;
 
 use crate::api_subs::{
     dtos::{
@@ -32,29 +34,84 @@ pub async fn get_subscription_plans(client: &Client) -> Res<Vec<SubscriptionPlan
                 return None;
             }
 
+            let product = match price.product {
+                // if it's been fully expanded *and* `active == true`, keep it
+                Some(Expandable::Object(prod)) if prod.active.unwrap_or(false) => prod,
+                // everything else (not expanded, archived, or missing) gets filtered out
+                _ => return None,
+            };
+
             let recurring = price.recurring?;
-            let product_obj = price.product.as_ref().and_then(|p| p.as_object())?;
+
+            let features: Option<Vec<String>> = product
+                .metadata
+                .clone()
+                .unwrap_or_default()
+                .get("features")
+                .and_then(|s| serde_json::from_str(s).ok());
 
             Some(SubscriptionPlan {
                 id: price.id.to_string(),
-                name: product_obj.name.clone().unwrap_or_default(),
-                description: product_obj.description.clone().unwrap_or_default(),
+                name: product.name.clone().unwrap_or_default(),
+                description: product.description.clone().unwrap_or_default(),
                 price: price.unit_amount.unwrap_or(0),
                 currency: price.currency.unwrap_or_default().to_string(),
                 interval: recurring.interval.to_string(),
                 active: true,
-                features: product_obj
-                    .metadata
-                    .clone()
-                    .unwrap_or_default()
-                    .get("features")
-                    .and_then(|f| serde_json::from_str(f.as_str()).ok()),
-                metadata: serde_json::to_value(&product_obj.metadata).ok(),
+                features,
+                metadata: serde_json::to_value(&product.metadata).ok(),
             })
         })
         .collect();
 
     Ok(plans)
+}
+
+pub async fn cancel_user_account(
+    client: &Client,
+    pool: &PgPool,
+    user_id: &Uuid,
+    customer_id_str: &str,
+) -> Res<()> {
+    // 1) Parse the Stripe customer ID
+    let customer_id: CustomerId = customer_id_str.parse().map_err(|e| {
+        AppError::Internal(format!("Invalid customer id: {}: {}", customer_id_str, e))
+    })?;
+
+    // 2) List all subscriptions for that customer
+    let subs = Subscription::list(
+        client,
+        &stripe::ListSubscriptions {
+            customer: Some(customer_id.clone()),
+            status: None, // cancel even inactive if you like, or `Some(All)`
+            limit: None,
+            ..Default::default()
+        },
+    )
+    .await
+    .map_err(AppError::from)?;
+
+    // 3) Immediately cancel each one
+    for s in subs.data {
+        Subscription::cancel(client, &s.id, stripe::CancelSubscription::new())
+            .await
+            .map_err(|e| {
+                AppError::Internal(format!("Failed to cancel subscription {}: {}", s.id, e))
+            })?;
+    }
+
+    // 4) Delete the Stripe customer entirely
+    let _ = Customer::delete(client, &customer_id).await.map_err(|e| {
+        AppError::Internal(format!("Failed to delete customer {}: {}", customer_id, e))
+    })?;
+
+    // 5) Remove the user from your database (or soft-delete)
+    sqlx::query!(r#"DELETE FROM users WHERE id = $1"#, user_id)
+        .execute(pool)
+        .await
+        .map_err(AppError::from)?;
+
+    Ok(())
 }
 
 /// Gets customer's subscription.

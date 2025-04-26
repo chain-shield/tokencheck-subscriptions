@@ -5,6 +5,7 @@ pub fn mount_secure_subs() -> actix_web::Scope {
     web::scope("/sub")
         .service(routes::sub::post_subscribe)
         .service(routes::sub::get_current)
+        .service(routes::sub::cancel_account)
         .service(routes::sub::post_auto_renew)
 }
 pub fn mount_subs() -> actix_web::Scope {

@@ -1,5 +1,7 @@
 use crate::common::{env_config::Config, error::AppError, http::Success, jwt::Claims, stripe};
-use actix_web::{get, post, web, Responder};
+use actix_web::{delete, get, post, web, Responder};
+use serde_json::json;
+use sqlx::PgPool;
 use std::sync::Arc;
 
 use crate::api_subs::{
@@ -228,6 +230,29 @@ pub async fn get_current(
         .ok_or_else(|| AppError::NotFound("No active subscription found".to_string()))?;
 
     Success::ok(UserSubscriptionResponse { subscription })
+}
+
+#[delete("/cancel")]
+async fn cancel_account(
+    claims: web::ReqData<Claims>,
+    pool: web::Data<Arc<PgPool>>,
+    config: web::Data<Arc<Config>>,
+) -> impl Responder {
+    log::info!("getting stripe client...");
+    let client = stripe::create_client(&config.stripe_secret_key);
+
+    // 2. call our service to cancel everything
+    services::sub::cancel_user_account(
+        &client,
+        &**pool,
+        &claims.user_id,
+        &claims.stripe_customer_id,
+    )
+    .await?;
+
+    // TODO - add cancel_user_account(...)
+    // 4. respond
+    Success::ok(json!({ "message": "Your account and subscriptions have been canceled." }))
 }
 
 /// Updates the auto-renewal setting for the user's current subscription.
