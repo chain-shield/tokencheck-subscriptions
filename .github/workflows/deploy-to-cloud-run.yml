@@ -1,0 +1,88 @@
+# This workflow automates the deployment of the tokencheck-backend service to Google Cloud Run
+# It triggers on pushes to the develop branch, builds a Docker image, and deploys it to Cloud Run
+# with all necessary environment variables and configuration settings
+name: Deploy to Cloud Run
+on:
+  push:
+    branches:
+      - develop
+# Define environment variables at the workflow level for reuse
+env:
+  PROJECT_ID: keen-oasis-454518-n8
+  SERVICE_NAME: tokencheck-subscriptions
+  REGION: us-east4
+  ENVIRONMENT: production
+  CORS_ALLOWED_ORIGIN: https://tokencheck.ai 
+  AUTH_SERVICE_URL: https://api.tokencheck.ai
+  DB_SSL_MODE: enable 
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: develop
+    steps:
+
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Authenticate with Google Cloud
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      # Set up Google Cloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      # Step 4: Configure Docker to push to GCR
+      - name: Configure Docker for GCR
+        run: gcloud auth configure-docker
+
+      # Step 5: Build and push the Docker image
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest .
+          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest
+
+      # Deploy to Cloud Run
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest \
+            --platform managed \
+            --region ${{ env.REGION }} \
+            --vpc-connector=tokencheck-connector \
+            --ingress all \
+            --allow-unauthenticated \
+            --port 8081 \
+            --max-instances 1 \
+            --memory 256Mi \
+            --cpu 1 \
+            --concurrency 10 \
+            --set-env-vars "MAX_CONNECTIONS=10" \
+            --set-env-vars "IP=0.0.0.0" \
+            --set-env-vars "WORKERS=4" \
+            --set-env-vars "SUBS_SERVICE_API_KEYS=${{ secrets.SUBS_SERVICE_API_KEYS }}" \
+            --set-env-vars "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" \
+            --set-env-vars "STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}" \
+            --set-env-vars "AUTH_API_KEY=${{ secrets.AUTH_API_KEY }}" \
+            --set-env-vars "AUTH_SERVICE_URL=${{ env.AUTH_SERVICE_URL }}" \
+            --set-env-vars "JWT_EXPIRATION_HOURS=24" \
+            --set-env-vars "ENABLE_CONSOLE_LOGGING=true" \
+            --set-env-vars "ENVIRONMENT=${{ env.ENVIRONMENT }}" \
+            --set-env-vars "DB_SSL_MODE=${{ env.DB_SSL_MODE }}" \
+            --set-env-vars "JWT_SECRET=${{ secrets.JWT_SECRET }}" \
+            --set-env-vars "DATABASE_URL=${{ secrets.DATABASE_URL }}" \
+            --set-env-vars "CORS_ALLOWED_ORIGIN=${{ env.CORS_ALLOWED_ORIGIN }}"
+
+
+
+
+
+
+
+
+
