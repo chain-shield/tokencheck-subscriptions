@@ -1,5 +1,10 @@
-use crate::common::error::{AppError, Res};
-use sqlx::PgPool;
+use std::str::FromStr;
+
+use crate::{
+    common::error::{AppError, Res},
+    db::models::log::Log,
+};
+use sqlx::{types::ipnetwork::Ipv4Network, PgPool};
 use stripe::{
     CheckoutSession, Client, CreateProduct, Customer, CustomerId, Expandable, ListPrices, Price,
     Product, Subscription,
@@ -73,6 +78,10 @@ pub async fn cancel_user_account(
     user_id: &Uuid,
     customer_id_str: &str,
 ) -> Res<()> {
+    // 0) Store request metadata in app state before user deletion
+    // This step depends on how your app is structured
+    // If you have access to a request ID or can set attributes on the request, do it here
+
     // 1) Parse the Stripe customer ID
     let customer_id: CustomerId = customer_id_str.parse().map_err(|e| {
         AppError::Internal(format!("Invalid customer id: {}: {}", customer_id_str, e))
@@ -105,12 +114,62 @@ pub async fn cancel_user_account(
         AppError::Internal(format!("Failed to delete customer {}: {}", customer_id, e))
     })?;
 
-    // 5) Remove the user from your database (or soft-delete)
+    // 5) Important: First log the account deletion as a special event
+    // This creates a log entry BEFORE the user is deleted
+    let log_entry = Log {
+        id: Uuid::nil(), // auto-generated
+        timestamp: chrono::Utc::now().naive_utc(),
+        method: "DELETE".to_string(),
+        path: "/api/secured/sub/cancel".to_string(), // Adjust path if needed
+        status_code: 200,
+        user_id: Some(*user_id), // Still valid as user exists
+        params: Some(serde_json::json!({})),
+        request_body: Some(serde_json::json!({
+            "action": "account_deletion",
+            "customer_id": customer_id_str
+        })),
+        response_body: Some(serde_json::json!({"success": true})),
+        ip_address: sqlx::types::ipnetwork::IpNetwork::from_str(&"0.0.0.0".to_string())
+            .expect("invalid ip"),
+        user_agent: "API internal call".to_string(),
+    };
+
+    crate::db::log::insert_log(pool, log_entry)
+        .await
+        .map_err(|e| AppError::Internal(format!("Failed to log account deletion: {}", e)))?;
+
+    // Begin transaction for database operations
+    let mut tx = pool.begin().await.map_err(AppError::from)?;
+
+    // 6) Delete any logs for this user - NO LONGER NEEDED since we're modifying the logger
+    // We want to keep logs but need to handle post-deletion logging
+
+    // 7) Delete any other tables with foreign key relationships to users
+    // Example (adapt as needed for your schema):
+    // sqlx::query!(r#"DELETE FROM user_sessions WHERE user_id = $1"#, user_id)
+    //    .execute(&mut *tx)
+    //    .await
+    //    .map_err(AppError::from)?;
+
+    // 8) Delete the user
     sqlx::query!(r#"DELETE FROM users WHERE id = $1"#, user_id)
-        .execute(pool)
+        .execute(&mut *tx)
         .await
         .map_err(AppError::from)?;
 
+    // Commit the transaction
+    tx.commit().await.map_err(AppError::from)?;
+
+    // 9) Set a request-specific flag to prevent logging with user_id
+    // There are several ways to implement this:
+    // a) If you're using request extensions, set a flag
+    // b) Return a custom response struct with metadata
+    // c) Use a thread-local or context variable
+
+    // For example, if using actix-web extensions:
+    // req.extensions_mut().insert(SkipUserIdLogging(true));
+
+    // For now, we'll return normally and fix the logger middleware
     Ok(())
 }
 

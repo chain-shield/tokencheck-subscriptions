@@ -315,24 +315,31 @@ where
                 }
             }
 
-            // Log to database
-            crate::db::log::insert_log(
-                &***pool,
-                Log {
-                    id: Uuid::nil(), // auto-generated
-                    timestamp: timestamp.naive_utc(),
-                    method,
-                    path,
-                    status_code,
-                    user_id,
-                    params: Some(params_json),
-                    request_body: Some(request_body),
-                    response_body: Some(response_body),
-                    ip_address,
-                    user_agent,
-                },
-            )
-            .await?;
+            if path.contains("cancel") && method == "DELETE" && status_code == 200 {
+                // Special case for user account deletion
+                // The log was already created before the user was deleted
+                // Skip creating another log entry that would violate the foreign key constraint
+                info!("Skipping post-deletion log for user account cancellation");
+            } else {
+                // Log to database
+                crate::db::log::insert_log(
+                    &***pool,
+                    Log {
+                        id: Uuid::nil(), // auto-generated
+                        timestamp: timestamp.naive_utc(),
+                        method,
+                        path,
+                        status_code,
+                        user_id,
+                        params: Some(params_json),
+                        request_body: Some(request_body),
+                        response_body: Some(response_body),
+                        ip_address,
+                        user_agent,
+                    },
+                )
+                .await?;
+            };
 
             Ok(res)
         })

@@ -1198,3 +1198,253 @@
 [90m[2025-04-30 14:05:44][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
 [90m[2025-04-30 14:05:44][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
 [90m[2025-04-30 14:05:44][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:52:10][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 10:57:13][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 10:57:14][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:57:14][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:57:14][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:59:39][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 10:59:41][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 10:59:41][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 10:59:41][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 10:59:41][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 10:59:41][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 10:59:41][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m404[0m] [34mGET[0m [97m/api/secured/sub/cancel[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:05:34][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:05:34][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:05:34][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:05:34][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 11:05:34][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 11:05:34][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::sub[0m] getting stripe client...
+[90m[2025-05-01 11:05:35][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [31mDELETE[0m [97m/api/secured/sub/cancel[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:05:35][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m404[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:07:24][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:07:24][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:07:24][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:07:24][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 11:07:29][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 11:07:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m404[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:07:30][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:07:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:07:30][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:07:35][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:07:35][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:07:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:07:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:07:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:07:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 11:07:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 11:07:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:07:50][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:07:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:07:50][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:07:55][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:07:55][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:07:55][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:07:55][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: ade02b23-f5f9-46c7-81af-77b461fde559
+[90m[2025-05-01 11:07:55][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: ade02b23-f5f9-46c7-81af-77b461fde559, stripe_customer_id: "cus_SBpt4hw6CRnY9h", exp: 1746124460 }
+[90m[2025-05-01 11:07:55][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m404[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94made02b23-f5f9-46c7-81af-77b461fde559[0m params=[96m{}[0m
+[90m[2025-05-01 11:07:55][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:08:27][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94mNone[0m params=[96m{}[0m
+[90m[2025-05-01 11:08:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94mNone[0m params=[96m{}[0m
+[90m[2025-05-01 11:08:55][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94mNone[0m params=[96m{}[0m
+[90m[2025-05-01 11:09:40][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::validate_api_key[0m] Valid API key for path /api/stripe/create-customer
+[90m[2025-05-01 11:09:40][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::server_calls[0m] Connecting to stripe client with stripe secret key...
+[90m[2025-05-01 11:09:40][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::server_calls[0m] Creating stripe customer for Amit Mehta
+[90m[2025-05-01 11:09:40][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m201[0m] [33mPOST[0m [97m/api/stripe/create-customer[0m [90m(0ms)[0m user_id=[94mNone[0m params=[96m{}[0m
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: 09cd8b33-f929-4292-8396-18ad1858ed33
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: 09cd8b33-f929-4292-8396-18ad1858ed33, stripe_customer_id: "cus_SERdiRP1aOD3cx", exp: 1746202180 }
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: 09cd8b33-f929-4292-8396-18ad1858ed33
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: 09cd8b33-f929-4292-8396-18ad1858ed33, stripe_customer_id: "cus_SERdiRP1aOD3cx", exp: 1746202180 }
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m404[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:09:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:09:56][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:09:56][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:09:56][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:09:56][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: 09cd8b33-f929-4292-8396-18ad1858ed33
+[90m[2025-05-01 11:09:56][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: 09cd8b33-f929-4292-8396-18ad1858ed33, stripe_customer_id: "cus_SERdiRP1aOD3cx", exp: 1746202180 }
+[90m[2025-05-01 11:09:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m404[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:10:07][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:10:07][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:10:07][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:10:07][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: 09cd8b33-f929-4292-8396-18ad1858ed33
+[90m[2025-05-01 11:10:07][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: 09cd8b33-f929-4292-8396-18ad1858ed33, stripe_customer_id: "cus_SERdiRP1aOD3cx", exp: 1746202180 }
+[90m[2025-05-01 11:10:07][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m404[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:10:47][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:10:47][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:10:47][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:10:47][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: 09cd8b33-f929-4292-8396-18ad1858ed33
+[90m[2025-05-01 11:10:47][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: 09cd8b33-f929-4292-8396-18ad1858ed33, stripe_customer_id: "cus_SERdiRP1aOD3cx", exp: 1746202180 }
+[90m[2025-05-01 11:10:47][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m404[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:29:28][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-05-01 11:29:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:29:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:29:28][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-05-01 11:29:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:29:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:29:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:29:28][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:29:38][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-05-01 11:29:38][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-05-01 11:29:38][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: 09cd8b33-f929-4292-8396-18ad1858ed33
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: 09cd8b33-f929-4292-8396-18ad1858ed33, stripe_customer_id: "cus_SERdiRP1aOD3cx", exp: 1746202180 }
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::sub[0m] getting stripe client...
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::sub[0m] getting stripe customer...
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::sub[0m] creating stripe session...
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::services::pay[0m] creating user subscription
+[90m[2025-05-01 11:30:50][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m201[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: 09cd8b33-f929-4292-8396-18ad1858ed33
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: 09cd8b33-f929-4292-8396-18ad1858ed33, stripe_customer_id: "cus_SERdiRP1aOD3cx", exp: 1746202180 }
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: 09cd8b33-f929-4292-8396-18ad1858ed33
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: 09cd8b33-f929-4292-8396-18ad1858ed33, stripe_customer_id: "cus_SERdiRP1aOD3cx", exp: 1746202180 }
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:32:57][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:33:04][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:33:04][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:33:04][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:33:04][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: 09cd8b33-f929-4292-8396-18ad1858ed33
+[90m[2025-05-01 11:33:04][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: 09cd8b33-f929-4292-8396-18ad1858ed33, stripe_customer_id: "cus_SERdiRP1aOD3cx", exp: 1746202180 }
+[90m[2025-05-01 11:33:04][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::sub[0m] getting stripe client...
+[90m[2025-05-01 11:33:05][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [31mDELETE[0m [97m/api/secured/sub/cancel[0m [90m(0ms)[0m user_id=[94m09cd8b33-f929-4292-8396-18ad1858ed33[0m params=[96m{}[0m
+[90m[2025-05-01 11:33:05][0m [31mERROR[0m [[94mtokencheck_subscriptions::common::error[0m] Database error: error returned from database: insert or update on table "logs" violates foreign key constraint "logs_user_id_fkey"
+[90m[2025-05-01 11:34:20][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::validate_api_key[0m] Valid API key for path /api/stripe/create-customer
+[90m[2025-05-01 11:34:20][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::server_calls[0m] Connecting to stripe client with stripe secret key...
+[90m[2025-05-01 11:34:20][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::server_calls[0m] Creating stripe customer for Amit Mehta
+[90m[2025-05-01 11:34:20][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m201[0m] [33mPOST[0m [97m/api/stripe/create-customer[0m [90m(0ms)[0m user_id=[94mNone[0m params=[96m{}[0m
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028, stripe_customer_id: "cus_SES2b1vTieGD4K", exp: 1746203660 }
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028, stripe_customer_id: "cus_SES2b1vTieGD4K", exp: 1746203660 }
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94mc9fdf119-9bdb-45cb-a019-c3eb907df028[0m params=[96m{}[0m
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[91m404[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94mc9fdf119-9bdb-45cb-a019-c3eb907df028[0m params=[96m{}[0m
+[90m[2025-05-01 11:34:25][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94mc9fdf119-9bdb-45cb-a019-c3eb907df028[0m params=[96m{}[0m
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028, stripe_customer_id: "cus_SES2b1vTieGD4K", exp: 1746203660 }
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::sub[0m] getting stripe client...
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::sub[0m] getting stripe customer...
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::sub[0m] creating stripe session...
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::services::pay[0m] creating user subscription
+[90m[2025-05-01 11:34:30][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m201[0m] [33mPOST[0m [97m/api/secured/sub/subscribe[0m [90m(0ms)[0m user_id=[94mc9fdf119-9bdb-45cb-a019-c3eb907df028[0m params=[96m{}[0m
+[90m[2025-05-01 11:35:38][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-05-01 11:35:38][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:35:38][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:35:38][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:35:38][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:35:38][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:35:38][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:35:38][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-05-01 11:35:47][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-05-01 11:35:47][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-05-01 11:35:47][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-05-01 11:56:37][0m [32mINFO[0m [[94mactix_server::server[0m] SIGINT received; starting forced shutdown
+[90m[2025-05-01 11:56:37][0m [32mINFO[0m [[94mactix_server::accept[0m] accept thread stopped
+[90m[2025-05-01 11:56:37][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:56:37][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:56:37][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:56:37][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:56:37][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:56:37][0m [32mINFO[0m [[94mactix_server::worker[0m] shutting down idle worker
+[90m[2025-05-01 11:57:08][0m [32mINFO[0m [[94mactix_server::builder[0m] starting 6 workers
+[90m[2025-05-01 11:57:08][0m [32mINFO[0m [[94mactix_server::server[0m] Actix runtime found; starting in Actix runtime
+[90m[2025-05-01 11:57:08][0m [32mINFO[0m [[94mactix_server::server[0m] starting service: "actix-web-service-127.0.0.1:8081", workers: 6, listening on: 127.0.0.1:8081
+[90m[2025-05-01 11:57:42][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/sub/plans[0m [90m(0ms)[0m user_id=[94mc9fdf119-9bdb-45cb-a019-c3eb907df028[0m params=[96m{}[0m
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028, stripe_customer_id: "cus_SES2b1vTieGD4K", exp: 1746203660 }
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028, stripe_customer_id: "cus_SES2b1vTieGD4K", exp: 1746203660 }
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [33mPOST[0m [97m/api/secured/pay/payment-intents[0m [90m(0ms)[0m user_id=[94mc9fdf119-9bdb-45cb-a019-c3eb907df028[0m params=[96m{}[0m
+[90m[2025-05-01 11:57:46][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [34mGET[0m [97m/api/secured/sub/current[0m [90m(0ms)[0m user_id=[94mc9fdf119-9bdb-45cb-a019-c3eb907df028[0m params=[96m{}[0m
+[90m[2025-05-01 11:57:48][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] Sending token validation request to http://localhost:8080/api/validate/validate-token
+[90m[2025-05-01 11:57:48][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ← auth service answered: 200 OK
+[90m[2025-05-01 11:57:48][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] token validation sucessfull..
+[90m[2025-05-01 11:57:48][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::services::auth_client[0m] ... for user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028
+[90m[2025-05-01 11:57:48][0m [32mINFO[0m [[94mtokencheck_subscriptions::auth::middleware::auth[0m] claims to send to route handlers: TokenValidationResponse { user_id: c9fdf119-9bdb-45cb-a019-c3eb907df028, stripe_customer_id: "cus_SES2b1vTieGD4K", exp: 1746203660 }
+[90m[2025-05-01 11:57:48][0m [32mINFO[0m [[94mtokencheck_subscriptions::api_subs::routes::sub[0m] getting stripe client...
+[90m[2025-05-01 11:57:49][0m [32mINFO[0m [[94mtokencheck_subscriptions::logger::middleware[0m] [[32m200[0m] [31mDELETE[0m [97m/api/secured/sub/cancel[0m [90m(0ms)[0m user_id=[94mc9fdf119-9bdb-45cb-a019-c3eb907df028[0m params=[96m{}[0m
